@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-/*  */
 public class CelestialBody : MonoBehaviour
 {
 	private MeshRenderer mr;
 	public List<Material> availableMaterials;
 	
 	
-	private static float _timeMultiplier;
+	private static float _timeMultiplier = 1.0f;
 	
     [SerializeField]
 	private float _rotationVelocity = 30.0f;

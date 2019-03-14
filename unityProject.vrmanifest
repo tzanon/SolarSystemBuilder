@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.643projecthome.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\User\\tzanon\\cps643-final-project\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "643-project-home [Testing]"
+        }
+      }
+    }
+  ]
+}

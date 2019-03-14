@@ -41,7 +41,6 @@ public class OrbitingBody : CelestialBody, ISatellite
 		get { return Mathf.Min(_path.Radius1, _path.Radius2); }
 	}
 
-
 	public OrbitPath OrbitalPath
 	{
 		get { return _path; }
