@@ -17,12 +17,12 @@ public class Orbit {
 	}
 
 	public Orbit (SceneManager.CelestialType type, float radius1, float radius2, CelestialBody primary) {
-
 		// TODO: spawn body and path
 		// set body to first point of path (north position)
 		// make this a monobehaviour?
-		// DO NOT make this a child of anything (scale!!!)
+		// DO NOT make the path a child of anything (scale!!!)
 
+		
 	}
 
 	

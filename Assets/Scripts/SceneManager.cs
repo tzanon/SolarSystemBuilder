@@ -10,10 +10,9 @@ public class SceneManager : MonoBehaviour {
 	public List<OrbitingBody> bodies = new List<OrbitingBody> ();
 
 	private void Awake () {
-	CelestialBody.TimeMultiplier = 0.0f;
+		CelestialBody.TimeMultiplier = 0.0f;
 
-	// TODO: spawn initial star
-
+		// TODO: spawn initial star
 	}
 
 	void Start () {
