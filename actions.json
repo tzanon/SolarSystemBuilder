@@ -90,6 +90,10 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/TZ643P/in/ToggleMenu",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/TZ643P/out/Haptic",
       "type": "vibration"
     }

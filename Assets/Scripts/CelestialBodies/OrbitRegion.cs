@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class OrbitRegion
+public class OrbitRegion 
 {
 	public Vector3 minimum, maximum;
 	
@@ -24,4 +25,5 @@ public class OrbitRegion
 		
 		return false;
 	}
+
 }

@@ -49,6 +49,14 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean ToggleMenu
+        {
+            get
+            {
+                return SteamVR_Actions.tZ643P_ToggleMenu;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get
