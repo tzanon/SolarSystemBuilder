@@ -8,6 +8,9 @@ public class OrbitPath : MonoBehaviour {
 
 	private LineRenderer lr;
 
+	public CelestialBody _primary;
+
+	private const int DefaultPointsToCalculate = 6;
 	public int pointsToCalculate;
 
 	public float initRad1, initRad2;
@@ -20,6 +23,12 @@ public class OrbitPath : MonoBehaviour {
 	/* whether the path is being visualized */
 	public bool PathVisible {
 		get { return lr.enabled; }
+	}
+
+	public CelestialBody Primary
+	{
+		get { return _primary; }
+		set { _primary = value; }
 	}
 
 	/* number of ellipse points sampled from the function */
@@ -53,23 +62,35 @@ public class OrbitPath : MonoBehaviour {
 		get { return _cartesianPoints.Length; }
 	}
 
+	private void Awake()
+	{
+		lr = GetComponent<LineRenderer>();
+		lr.loop = true;
+	}
+
 	private void Start () {
 
-		lr = GetComponent<LineRenderer> ();
-		lr.loop = true;
-
-		this.HidePath ();
+		
 
 		_rad1 = initRad1;
 		_rad2 = initRad2;
-
-		CalculatePathPoints ();
-
-		this.ShowPath ();
 	}
 
 	private void Update () {
-		UpdatePathPositions ();
+		if (_primary)
+			this.transform.position = _primary.transform.position;
+
+		if (transform.hasChanged)
+			UpdatePathPositions ();
+	}
+
+	public void Initialize(float r1, float r2, int numPoints = DefaultPointsToCalculate)
+	{
+		_rad1 = Mathf.Clamp(r1, 1.0f, 100.0f);
+		_rad2 = Mathf.Clamp(r2, 1.0f, 100.0f);
+		pointsToCalculate = numPoints;
+		CalculatePathPoints();
+		ShowPath();
 	}
 
 	private void UpdatePathPositions () {

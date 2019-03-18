@@ -2,9 +2,6 @@
 {
 	/* orbit speed */
 	float OrbitSpeed { get; set; }
-	
-	/* the body this one orbits */
-	CelestialBody Primary { get; set; }
 
 	/* larger orbit radius */
 	float MaxOrbitRadius { get; }

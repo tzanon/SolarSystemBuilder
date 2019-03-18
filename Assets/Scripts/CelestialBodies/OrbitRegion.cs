@@ -1,29 +1,24 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class OrbitRegion 
+public struct OrbitRegion
 {
-	public Vector3 minimum, maximum;
-	
-	public OrbitRegion(Vector3 min, Vector3 max)
+	public float upperRad1, upperRad2;
+	public float lowerRad1, lowerRad2;
+
+	public float Max
 	{
-		minimum = min;
-		maximum = max;
+		get
+		{
+			return Mathf.Max(upperRad1, upperRad2);
+		}
 	}
-	
-	public bool ContainsPoint(Vector3 point)
+
+	public float Min
 	{
-		// test for colinearity
-		Vector3 axis = maximum - minimum;
-		Vector3 pointAxis = point - minimum;
-		
-		// if not colinear, false
-		if (Vector3.Dot(axis, pointAxis) == 0)
-			return false;
-		
-		//
-		
-		return false;
+		get
+		{
+			return Mathf.Min(lowerRad1, lowerRad2);
+		}
 	}
 
 }

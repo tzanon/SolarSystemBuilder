@@ -12,6 +12,7 @@ public class OrbitingBody : CelestialBody, ISatellite
 	private Vector3 _nextPathPoint;
 	
 	/* body that this one orbits */
+	/*
 	private CelestialBody _primary;
 	
 	public CelestialBody Primary
@@ -19,7 +20,8 @@ public class OrbitingBody : CelestialBody, ISatellite
 		get { return _primary; }
 		set { _primary = value; }
 	}
-	
+	*/
+
 	public float OrbitSpeed
 	{
 		get { return _orbitSpeed; }
@@ -57,10 +59,7 @@ public class OrbitingBody : CelestialBody, ISatellite
 	
 	protected override void Start()
 	{
-		// set path
-		
-		
-		// set initial _nextPoint
+		base.Start();
 	}
 	
 	protected override void FixedUpdate()
@@ -73,20 +72,21 @@ public class OrbitingBody : CelestialBody, ISatellite
 	
 	private OrbitRegion CalculateOrbitRegion()
 	{
-		Vector3 orbitZ = (this.transform.position - _primary.transform.position).normalized;
-		float bodyRadius = this.transform.localScale.x / 2;
-		
-		Vector3 minimum = this.transform.position - bodyRadius * orbitZ;
-		Vector3 maximum = this.transform.position + bodyRadius * orbitZ;
-		
-		return new OrbitRegion(minimum, maximum);
+		if (!_path)
+			return new OrbitRegion();
+
+		return new OrbitRegion
+		{
+			upperRad1 = _path.Radius1 + this.BodyRadius,
+			upperRad2 = _path.Radius2 + this.BodyRadius,
+			lowerRad1 = _path.Radius1 - this.BodyRadius,
+			lowerRad2 = _path.Radius2 - this.BodyRadius
+		}; ;
 	}
 	
 	public bool RegionsOverlap(OrbitRegion other)
 	{
-		OrbitRegion region = this.CalculateOrbitRegion();
-		
-		
+
 		return false;
 	}
 	

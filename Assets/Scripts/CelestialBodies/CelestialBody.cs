@@ -5,10 +5,11 @@ public class CelestialBody : MonoBehaviour
 {
 	private MeshRenderer mr;
 	public List<Material> availableMaterials;
-	
-	
+
 	private static float _timeMultiplier = 1.0f;
-	
+
+	public const float MinimumSeparatingDistance = 10.0f;
+
     [SerializeField]
 	private float _rotationVelocity = 30.0f;
 
@@ -24,7 +25,12 @@ public class CelestialBody : MonoBehaviour
 		get { return _timeMultiplier; }
 		set { _timeMultiplier = Mathf.Clamp(value, 0.0f, 1.0f); }
 	}
-	
+
+	public float BodyRadius
+	{
+		get { return transform.localScale.x / 2; }
+	}
+
 	public float RotationVelocity
 	{
 		get { return _rotationVelocity; }
@@ -80,7 +86,26 @@ public class CelestialBody : MonoBehaviour
 		mr.materials = mats;
 	}
 
-    public float GetFurthestOrbit()
+	public float GetMaxSatelliteRad1()
+	{
+
+		return 0f;
+	}
+
+	public float GetMaxSatelliteRad2()
+	{
+
+		return 0f;
+	}
+
+	
+	public ISatellite FurthestSatellite()
+	{
+
+		return null;
+	}
+
+	public float GetFurthestOrbit()
     {
 		float furthestOrbitDistance = 0.0f;
 
