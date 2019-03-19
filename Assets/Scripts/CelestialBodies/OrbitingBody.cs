@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using UnityEngine;
 
 /* a celestial body that can orbit other bodies */
@@ -10,18 +11,13 @@ public class OrbitingBody : CelestialBody, ISatellite
 	private OrbitPath _path;
 	private int _pointIndex = 0;
 	private Vector3 _nextPathPoint;
-	
+		
 	/* body that this one orbits */
-	/*
-	private CelestialBody _primary;
-	
 	public CelestialBody Primary
 	{
-		get { return _primary; }
-		set { _primary = value; }
+		get { return _path.Primary; }
 	}
-	*/
-
+	
 	public float OrbitSpeed
 	{
 		get { return _orbitSpeed; }
@@ -42,20 +38,6 @@ public class OrbitingBody : CelestialBody, ISatellite
 	{
 		get { return Mathf.Min(_path.Radius1, _path.Radius2); }
 	}
-
-	public OrbitPath OrbitalPath
-	{
-		get { return _path; }
-		set { _path = value; }
-	}
-	
-	public OrbitRegion OrbitalRegion
-	{
-		get
-		{
-			return CalculateOrbitRegion();
-		}
-	}
 	
 	protected override void Start()
 	{
@@ -68,26 +50,6 @@ public class OrbitingBody : CelestialBody, ISatellite
 		
 		// TODO: traverse path at rate * time multiplier
 		
-	}
-	
-	private OrbitRegion CalculateOrbitRegion()
-	{
-		if (!_path)
-			return new OrbitRegion();
-
-		return new OrbitRegion
-		{
-			upperRad1 = _path.Radius1 + this.BodyRadius,
-			upperRad2 = _path.Radius2 + this.BodyRadius,
-			lowerRad1 = _path.Radius1 - this.BodyRadius,
-			lowerRad2 = _path.Radius2 - this.BodyRadius
-		}; ;
-	}
-	
-	public bool RegionsOverlap(OrbitRegion other)
-	{
-
-		return false;
 	}
 	
 	private Vector3 GetNextPathPoint()

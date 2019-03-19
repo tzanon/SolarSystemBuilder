@@ -5,32 +5,37 @@ public class CelestialBody : MonoBehaviour
 {
 	private MeshRenderer mr;
 	public List<Material> availableMaterials;
-
+	
 	private static float _timeMultiplier = 1.0f;
-
+	
 	public const float MinimumSeparatingDistance = 10.0f;
-
-    [SerializeField]
+	
+	[SerializeField]
 	private float _rotationVelocity = 30.0f;
-
+	
 	// TODO: set some rule for satellites
 	// e.g. max orbit is half that of its primary
 	private float maxOrbitDistance = 100.0f;
 	
-	/* set of satellites orbiting this body */
-	protected List<ISatellite> _satellites = new List<ISatellite>();
+	/* list of object and orbit path pairs for this body */
+	protected List<Orbit> _orbits = new List<Orbit>();
 	
 	public static float TimeMultiplier
 	{
 		get { return _timeMultiplier; }
 		set { _timeMultiplier = Mathf.Clamp(value, 0.0f, 1.0f); }
 	}
-
+	
+	public int NumSatellites
+	{
+		get { return _orbits.Count; }
+	}
+	
 	public float BodyRadius
 	{
 		get { return transform.localScale.x / 2; }
 	}
-
+	
 	public float RotationVelocity
 	{
 		get { return _rotationVelocity; }
@@ -57,14 +62,14 @@ public class CelestialBody : MonoBehaviour
 			transform.rotation = Quaternion.Euler(
 				transform.rotation.eulerAngles.x,
 				transform.rotation.eulerAngles.y,
-				Mathf.Clamp(value, 0.0f, 360.0f));
+				Mathf.Clamp(value, 0.0f, 360.0f)
+				);
 		}
 	}
 	
 	protected virtual void Start()
 	{
 		mr = GetComponent<MeshRenderer>();
-		
 	}
 	
 	protected virtual void FixedUpdate()
@@ -85,58 +90,31 @@ public class CelestialBody : MonoBehaviour
 		mats[0] = availableMaterials[Mathf.Clamp(idx, 0, availableMaterials.Count - 1)];
 		mr.materials = mats;
 	}
-
-	public float GetMaxSatelliteRad1()
-	{
-
-		return 0f;
-	}
-
-	public float GetMaxSatelliteRad2()
-	{
-
-		return 0f;
-	}
-
 	
-	public ISatellite FurthestSatellite()
+	public Orbit GetFurthestOrbit()
 	{
-
-		return null;
-	}
-
-	public float GetFurthestOrbit()
-    {
-		float furthestOrbitDistance = 0.0f;
-
-		if (_satellites.Count <= 0)
+		if (_orbits.Count <= 0)
 		{
-			return furthestOrbitDistance;
+			return null;
 		}
+		
+		Orbit furthest = _orbits[0];
+		float furthestOrbitDistance = furthest.Satellite.MaxOrbitRadius;
 
-		ISatellite furthestSat = _satellites[0];
-		furthestOrbitDistance = furthestSat.MaxOrbitRadius;
-
-		foreach (ISatellite satellite in _satellites)
+		foreach (Orbit orbit in _orbits)
 		{
-			float satMaxOrbit = satellite.MaxOrbitRadius;
+			float satMaxOrbit = orbit.Satellite.MaxOrbitRadius;
 
 			if (satMaxOrbit > furthestOrbitDistance)
 			{
-				furthestSat = satellite;
+				furthest = orbit;
 				furthestOrbitDistance = satMaxOrbit;
 			}
 		}
-
-		if (furthestSat.GetType() == typeof(CelestialBody))
-		{
-			Debug.Log("finding furthest orbit of furthest body's satellites");
-			furthestOrbitDistance += ((CelestialBody)furthestSat).GetFurthestOrbit();
-		}
-
-		return furthestOrbitDistance;
-    }
-
+		
+		return furthest;
+	}
+	
 	public void AddOrbitingBody(ISatellite body)
 	{
 		
@@ -144,8 +122,7 @@ public class CelestialBody : MonoBehaviour
 	
 	public void RemoveOrbitingBody(ISatellite body)
 	{
-		if (_satellites.Contains(body))
-			_satellites.Remove(body);
+		
 	}
 	
 }
