@@ -9,7 +9,10 @@ public class CelestialBody : MonoBehaviour
 	private static float _timeMultiplier = 1.0f;
 	
 	public const float MinimumSeparatingDistance = 10.0f;
-	
+
+	[SerializeField]
+	private float _maxSize = 100.0f;
+
 	[SerializeField]
 	private float _rotationVelocity = 30.0f;
 	
@@ -18,7 +21,7 @@ public class CelestialBody : MonoBehaviour
 	private float maxOrbitDistance = 100.0f;
 	
 	/* list of object and orbit path pairs for this body */
-	protected List<Orbit> _orbits = new List<Orbit>();
+	protected List<ISatellite> _satellites = new List<ISatellite>();
 	
 	public static float TimeMultiplier
 	{
@@ -28,12 +31,17 @@ public class CelestialBody : MonoBehaviour
 	
 	public int NumSatellites
 	{
-		get { return _orbits.Count; }
+		get { return _satellites.Count; }
 	}
-	
-	public float BodyRadius
+
+	public virtual float Size
 	{
 		get { return transform.localScale.x / 2; }
+		set
+		{
+			float size = Mathf.Clamp(value, 0.1f, _maxSize);
+			transform.localScale = new Vector3(value, value, value);
+		}
 	}
 	
 	public float RotationVelocity
@@ -91,23 +99,23 @@ public class CelestialBody : MonoBehaviour
 		mr.materials = mats;
 	}
 	
-	public Orbit GetFurthestOrbit()
+	public ISatellite GetFurthestSatellite()
 	{
-		if (_orbits.Count <= 0)
+		if (_satellites.Count <= 0)
 		{
 			return null;
 		}
 		
-		Orbit furthest = _orbits[0];
-		float furthestOrbitDistance = furthest.Satellite.MaxOrbitRadius;
+		ISatellite furthest = _satellites[0];
+		float furthestOrbitDistance = furthest.MaxOrbitRadius;
 
-		foreach (Orbit orbit in _orbits)
+		foreach (ISatellite sat in _satellites)
 		{
-			float satMaxOrbit = orbit.Satellite.MaxOrbitRadius;
+			float satMaxOrbit = sat.MaxOrbitRadius;
 
 			if (satMaxOrbit > furthestOrbitDistance)
 			{
-				furthest = orbit;
+				furthest = sat;
 				furthestOrbitDistance = satMaxOrbit;
 			}
 		}
@@ -115,12 +123,17 @@ public class CelestialBody : MonoBehaviour
 		return furthest;
 	}
 	
-	public void AddOrbitingBody(ISatellite body)
+	public void Remove()
 	{
-		
+
+	}
+
+	public virtual void AddOrbitingBody(ISatellite body)
+	{
+		_satellites.Add(body);
 	}
 	
-	public void RemoveOrbitingBody(ISatellite body)
+	public virtual void RemoveOrbitingBody(ISatellite body)
 	{
 		
 	}

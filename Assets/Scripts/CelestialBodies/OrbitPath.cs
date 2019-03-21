@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class OrbitPath : MonoBehaviour {
+
+	public bool debugMode = false;
+	public GameObject pointMarker;
+
 	private enum Direction { North, East, South, West };
 	private Dictionary<Direction, Vector3> _compassPoints = new Dictionary<Direction, Vector3> ();
 
@@ -69,9 +73,6 @@ public class OrbitPath : MonoBehaviour {
 	}
 
 	private void Start () {
-
-		
-
 		_rad1 = initRad1;
 		_rad2 = initRad2;
 	}
@@ -84,12 +85,18 @@ public class OrbitPath : MonoBehaviour {
 			UpdatePathPositions ();
 	}
 
-	public void Initialize(float r1, float r2, int numPoints = DefaultPointsToCalculate)
+	public void Initialize(CelestialBody primary, float r1, float r2, int numPoints = DefaultPointsToCalculate)
 	{
+		_primary = primary;
+		this.transform.position = _primary.transform.position;
+		this.transform.rotation = Quaternion.identity;
+
 		_rad1 = Mathf.Clamp(r1, 1.0f, 100.0f);
 		_rad2 = Mathf.Clamp(r2, 1.0f, 100.0f);
 		pointsToCalculate = numPoints;
+
 		CalculatePathPoints();
+		UpdatePathPositions();
 		ShowPath();
 	}
 

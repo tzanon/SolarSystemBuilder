@@ -52,6 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d9b38b92f013ed449cc0ee78eda6150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
+  pointMarker: {fileID: 1208074006869236, guid: 45dbcc74cdbf9f44aab54655fa409200,
+    type: 2}
   _primary: {fileID: 0}
   pointsToCalculate: 4
   initRad1: 5
@@ -94,7 +97,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.1
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:
