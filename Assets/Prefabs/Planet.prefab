@@ -96,7 +96,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableMaterials: []
+  _maxSize: 100
   _rotationVelocity: 30
+  debugMode: 1
+  orbitMarker: {fileID: 1208074006869236, guid: 45dbcc74cdbf9f44aab54655fa409200,
+    type: 2}
 --- !u!135 &135254079510142596
 SphereCollider:
   m_ObjectHideFlags: 1

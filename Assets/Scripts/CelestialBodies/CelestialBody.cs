@@ -22,6 +22,8 @@ public class CelestialBody : MonoBehaviour
 	
 	/* list of object and orbit path pairs for this body */
 	protected List<ISatellite> _satellites = new List<ISatellite>();
+
+	private ISatellite _furthestSatellite;
 	
 	public static float TimeMultiplier
 	{
@@ -32,6 +34,11 @@ public class CelestialBody : MonoBehaviour
 	public int NumSatellites
 	{
 		get { return _satellites.Count; }
+	}
+
+	public ISatellite FurthestSatellite
+	{
+		get { return _furthestSatellite; }
 	}
 
 	public virtual float Size
@@ -99,6 +106,37 @@ public class CelestialBody : MonoBehaviour
 		mr.materials = mats;
 	}
 	
+	private void CalculateFurthestSatellite()
+	{
+		if (_satellites.Count < 1)
+		{
+			_furthestSatellite = null;
+			return;
+		}
+
+		if (_satellites.Count == 1)
+		{
+			_furthestSatellite = _satellites[0];
+			return;
+		}
+
+		ISatellite furthest = _satellites[0];
+		float furthestOrbitDistance = furthest.MaxOrbitRadius;
+
+		foreach (ISatellite sat in _satellites)
+		{
+			float satMaxOrbit = sat.MaxOrbitRadius;
+
+			if (satMaxOrbit > furthestOrbitDistance)
+			{
+				furthest = sat;
+				furthestOrbitDistance = satMaxOrbit;
+			}
+		}
+
+		_furthestSatellite = furthest;
+	}
+
 	public ISatellite GetFurthestSatellite()
 	{
 		if (_satellites.Count <= 0)
@@ -125,17 +163,47 @@ public class CelestialBody : MonoBehaviour
 	
 	public void Remove()
 	{
+		// TODO: destroy this CB and everything orbiting it
+
+		// not if initial star
+		if (this.CompareTag("InitialStar"))
+		{
+			return;
+		}
 
 	}
 
 	public virtual void AddOrbitingBody(ISatellite body)
 	{
 		_satellites.Add(body);
+		this.CalculateFurthestSatellite();
 	}
 	
 	public virtual void RemoveOrbitingBody(ISatellite body)
 	{
-		
+		_satellites.Remove(body);
+		this.CalculateFurthestSatellite();
 	}
-	
+
+	#region debug functions
+
+	public string SatellitesToString()
+	{
+		string satStr = "";
+
+		foreach (ISatellite sat in _satellites)
+		{
+			satStr += (sat.OrbitRadius1 + ", ");
+		}
+
+		return satStr;
+	}
+
+	public void PrintOrbits()
+	{
+		Debug.Log(SatellitesToString());
+	}
+
+	#endregion
+
 }

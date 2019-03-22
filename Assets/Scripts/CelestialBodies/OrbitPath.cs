@@ -48,7 +48,7 @@ public class OrbitPath : MonoBehaviour {
 	public float Radius1 {
 		get { return _rad1; }
 		set {
-			_rad1 = Mathf.Clamp (value, 1.0f, 100.0f);
+			_rad1 = value; // Mathf.Clamp (value, 1.0f, 100.0f);
 			CalculatePathPoints ();
 		}
 	}
@@ -57,7 +57,7 @@ public class OrbitPath : MonoBehaviour {
 	public float Radius2 {
 		get { return _rad2; }
 		set {
-			_rad2 = Mathf.Clamp (value, 1.0f, 100.0f);
+			_rad2 = value; // Mathf.Clamp (value, 1.0f, 100.0f);
 			CalculatePathPoints ();
 		}
 	}
@@ -87,12 +87,12 @@ public class OrbitPath : MonoBehaviour {
 
 	public void Initialize(CelestialBody primary, float r1, float r2, int numPoints = DefaultPointsToCalculate)
 	{
-		_primary = primary;
+		this._primary = primary;
 		this.transform.position = _primary.transform.position;
 		this.transform.rotation = Quaternion.identity;
 
-		_rad1 = Mathf.Clamp(r1, 1.0f, 100.0f);
-		_rad2 = Mathf.Clamp(r2, 1.0f, 100.0f);
+		_rad1 = r1; //Mathf.Clamp(r1, 1.0f, 100.0f);
+		_rad2 = r2; //Mathf.Clamp(r2, 1.0f, 100.0f);
 		pointsToCalculate = numPoints;
 
 		CalculatePathPoints();

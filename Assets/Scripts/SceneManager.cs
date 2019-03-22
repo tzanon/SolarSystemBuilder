@@ -1,10 +1,15 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SceneManager : MonoBehaviour {
 
 	public bool debugMode = false;
 	private bool _sceneIsEditable;
+
+	public Text orbitListDisplay;
+	public Text numSatellitesDisplay;
+	public Text furthestOrbitDisplay;
 
 	public enum CelestialType { Star, Planet, Moon, SatCam };
 
@@ -33,10 +38,11 @@ public class SceneManager : MonoBehaviour {
 		{
 			{ CelestialType.Star, starTemplate },
 			{ CelestialType.Planet, planetTemplate },
-			{ CelestialType.Moon, moonTemplate },
+			{ CelestialType.Moon, moonTemplate }
 		};
 
 		this.SetEditMode();
+		UpdateDisplayInfo();
 	}
 
 	private void Update()
@@ -58,15 +64,20 @@ public class SceneManager : MonoBehaviour {
 				}
 			}
 
+			if (Input.GetKeyDown(KeyCode.I))
+			{
+				initialStar.PrintOrbits();
+			}
+
 			// spawn a star
-			if (Input.GetKeyDown(KeyCode.Q))
+			if (Input.GetKeyDown(KeyCode.S))
 			{
 				Debug.Log("added star");
 				this.AddSatellite(initialStar, CelestialType.Star);
 			}
 
 			// spawn a planet
-			if (Input.GetKeyDown(KeyCode.W))
+			if (Input.GetKeyDown(KeyCode.P))
 			{
 				Debug.Log("added planet");
 				this.AddSatellite(initialStar, CelestialType.Planet);
@@ -113,12 +124,12 @@ public class SceneManager : MonoBehaviour {
 		}
 		else
 		{
-			furthestRegionLimit = primary.GetFurthestSatellite().Region.Max;
+			furthestRegionLimit = primary.FurthestSatellite.Region.Max;
 		}
 
 		//Debug.Log("size of body is " + templates[type].Size);
 
-		float orbitRadius = furthestRegionLimit + CelestialBody.MinimumSeparatingDistance + 2*templates[type].Size;
+		float orbitRadius = furthestRegionLimit + CelestialBody.MinimumSeparatingDistance + templates[type].Size;
 		OrbitPath path = Instantiate(orbitPathTemplate); //, primary.transform.position, Quaternion.identity);
 
 		Debug.Log("orbit radius is " + orbitRadius);
@@ -137,6 +148,14 @@ public class SceneManager : MonoBehaviour {
 		satellite.InitSatellite(primary, path, orbitRadius, orbitRadius);
 
 		primary.AddOrbitingBody(satellite);
+
+		if (debugMode)
+			UpdateDisplayInfo();
+	}
+
+	public void RemoveSatellite()
+	{
+
 	}
 
 	public void SaveSolarSystem () {
@@ -144,6 +163,19 @@ public class SceneManager : MonoBehaviour {
 	}
 
 	public void LoadSolarSystem () {
+
+	}
+
+	public void UpdateDisplayInfo()
+	{
+		orbitListDisplay.text = initialStar.SatellitesToString();
+		numSatellitesDisplay.text = "Satellites: " + initialStar.NumSatellites;
+
+		ISatellite furthest = initialStar.FurthestSatellite;
+		if (furthest != null)
+			furthestOrbitDisplay.text = "Furthest Orbit: " + furthest.MaxOrbitRadius;
+		else
+			furthestOrbitDisplay.text = "Furthest Orbit: None";
 
 	}
 

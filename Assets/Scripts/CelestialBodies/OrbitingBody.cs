@@ -3,6 +3,10 @@
 /* a celestial body that can orbit other bodies */
 public class OrbitingBody : CelestialBody, ISatellite
 {
+	public bool debugMode = false;
+	public GameObject orbitMarker;
+	private GameObject[] markers;
+
 	[Range(1.0f, 500.0f)]
 	private float _orbitSpeed;
 	
@@ -47,10 +51,7 @@ public class OrbitingBody : CelestialBody, ISatellite
 	/* larger orbit radius */
 	public float MaxOrbitRadius
 	{
-		get
-		{
-			return Mathf.Max(_path.Radius1, _path.Radius2);
-		}
+		get { return Mathf.Max(_path.Radius1, _path.Radius2); }
 	}
 
 	/* smaller orbit radius */
@@ -89,7 +90,7 @@ public class OrbitingBody : CelestialBody, ISatellite
 		base.FixedUpdate();
 		
 		// TODO: traverse path at rate * time multiplier
-		
+
 	}
 
 	/* should be called immediately after instantiation */
@@ -101,8 +102,11 @@ public class OrbitingBody : CelestialBody, ISatellite
 		this.transform.position = _path.GetWorldPointByIndex(0);
 		this.transform.rotation = Quaternion.identity;
 
+		markers = new GameObject[4];
 		CalculateOrbitRegion();
 	}
+
+	
 
 	/* calculates the region this OB occupies while orbiting */
 	public void CalculateOrbitRegion()
@@ -125,6 +129,11 @@ public class OrbitingBody : CelestialBody, ISatellite
 		else
 		{
 			_region += this.GetFurthestSatellite().Region;
+		}
+
+		if (debugMode)
+		{
+			RenderRegion();
 		}
 	}
 
@@ -169,4 +178,21 @@ public class OrbitingBody : CelestialBody, ISatellite
 		CalculateOrbitRegion();
 	}
 
+	#region debugging functions
+
+	private void RenderRegion()
+	{
+		foreach (GameObject marker in markers)
+			Destroy(marker);
+
+		Vector3 currentPos = this.transform.position;
+		Vector3 primaryPos = Primary.transform.position;
+
+		markers[0] = Instantiate(orbitMarker, primaryPos + Vector3.forward * _region.upperRad1, Quaternion.identity);
+		markers[1] = Instantiate(orbitMarker, primaryPos + Vector3.forward * _region.lowerRad1, Quaternion.identity);
+		markers[2] = Instantiate(orbitMarker, primaryPos + Vector3.right * _region.upperRad2, Quaternion.identity);
+		markers[3] = Instantiate(orbitMarker, primaryPos + Vector3.right * _region.lowerRad2, Quaternion.identity);
+	}
+
+	#endregion
 }
