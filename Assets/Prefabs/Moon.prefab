@@ -101,6 +101,7 @@ MonoBehaviour:
   debugMode: 1
   orbitMarker: {fileID: 1208074006869236, guid: 45dbcc74cdbf9f44aab54655fa409200,
     type: 2}
+  initOrbitSpeed: 10
 --- !u!135 &135394072784773308
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -6,9 +6,11 @@ public class OrbitingBody : CelestialBody, ISatellite
 	public bool debugMode = false;
 	public GameObject orbitMarker;
 	private GameObject[] markers;
-
+	
 	[Range(1.0f, 500.0f)]
-	private float _orbitSpeed;
+	public float initOrbitSpeed = 10.0f;
+	
+	private float _orbitSpeed = 10.0f;
 	
 	private OrbitPath _path;
 	private int _pointIndex = 0;
@@ -34,6 +36,7 @@ public class OrbitingBody : CelestialBody, ISatellite
 		set
 		{
 			_path.Radius1 = value;
+			this.transform.position = _path.GetWorldPointByIndex(0);
 			CalculateOrbitRegion();
 		}
 	}
@@ -44,6 +47,7 @@ public class OrbitingBody : CelestialBody, ISatellite
 		set
 		{
 			_path.Radius2 = value;
+			this.transform.position = _path.GetWorldPointByIndex(0);
 			CalculateOrbitRegion();
 		}
 	}
@@ -83,6 +87,8 @@ public class OrbitingBody : CelestialBody, ISatellite
 	protected override void Start()
 	{
 		base.Start();
+		
+		OrbitSpeed = initOrbitSpeed;
 	}
 	
 	protected override void FixedUpdate()
@@ -90,24 +96,39 @@ public class OrbitingBody : CelestialBody, ISatellite
 		base.FixedUpdate();
 		
 		// TODO: traverse path at rate * time multiplier
-
+		if (_path)
+			this.TraversePath();
 	}
 
 	/* should be called immediately after instantiation */
 	public void InitSatellite(CelestialBody primary, OrbitPath path, float rad1, float rad2)
 	{
 		this._path = path;
-
+		
 		_path.Initialize(primary, rad1, rad2);
 		this.transform.position = _path.GetWorldPointByIndex(0);
 		this.transform.rotation = Quaternion.identity;
-
+		
+		this.GetNextPathPoint();
+		
+		if (debugMode)
+			Debug.Log("first point is " + _nextPathPoint + " at index " + _pointIndex);
+		
 		markers = new GameObject[4];
 		CalculateOrbitRegion();
 	}
-
 	
-
+	public void UpdateRadii(float rad1, float rad2)
+	{
+		/*
+		* TODO: set _path radii
+		* update this position
+		* update orbits and positions of satellites
+		* or maybe prevent radius modification when it has satellites?
+		*/
+		
+	}
+	
 	/* calculates the region this OB occupies while orbiting */
 	public void CalculateOrbitRegion()
 	{
@@ -136,8 +157,8 @@ public class OrbitingBody : CelestialBody, ISatellite
 			RenderRegion();
 		}
 	}
-
-	private Vector3 GetNextPathPoint()
+	
+	private void GetNextPathPoint()
 	{
 		if (_pointIndex >= _path.Length - 1)
 		{
@@ -148,19 +169,21 @@ public class OrbitingBody : CelestialBody, ISatellite
 			_pointIndex++;
 		}
 		
-		return _path.GetLocalPointByIndex(_pointIndex);
+		_nextPathPoint = _path.GetWorldPointByIndex(_pointIndex);
+		//_nextPathPoint = _path.GetLocalPointByIndex(_pointIndex);
 	}
 	
 	public void TraversePath()
 	{
 		if (transform.position == transform.TransformPoint(_nextPathPoint))
 		{
-			_nextPathPoint = GetNextPathPoint();
+			this.GetNextPathPoint();
 		}
 		
 		transform.position = Vector3.MoveTowards(
 			transform.position,
-			transform.TransformPoint(_nextPathPoint),
+			//transform.TransformPoint(_nextPathPoint),
+			_nextPathPoint,
 			TimeMultiplier * _orbitSpeed * Time.time);
 	}
 

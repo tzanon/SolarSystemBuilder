@@ -130,21 +130,18 @@ public class SceneManager : MonoBehaviour {
 		//Debug.Log("size of body is " + templates[type].Size);
 
 		float orbitRadius = furthestRegionLimit + CelestialBody.MinimumSeparatingDistance + templates[type].Size;
-		OrbitPath path = Instantiate(orbitPathTemplate); //, primary.transform.position, Quaternion.identity);
+		OrbitPath path = Instantiate(orbitPathTemplate);
 
 		Debug.Log("orbit radius is " + orbitRadius);
-
-		//path.Primary = primary;
-		//path.Initialize(orbitRadius, orbitRadius);
-
+		
 		/*
 		 * TODO: spawn satellite at path's north position
 		 * set satellite's path
 		 * add satellite to SM's list of CBs
 		 */
-
-
-		OrbitingBody satellite = Instantiate(templates[type]); //, path.GetWorldPointByIndex(0), Quaternion.identity);
+		 
+		
+		OrbitingBody satellite = Instantiate(templates[type]);
 		satellite.InitSatellite(primary, path, orbitRadius, orbitRadius);
 
 		primary.AddOrbitingBody(satellite);

@@ -20,7 +20,9 @@
 	OrbitRegion Region { get; }
 
 	void InitSatellite(CelestialBody primary, OrbitPath path, float rad1, float rad2);
-
+	
+	void UpdateRadii(float rad1, float rad2);
+	
 	void TraversePath();
 	
 }

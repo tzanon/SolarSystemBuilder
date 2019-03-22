@@ -98,9 +98,10 @@ MonoBehaviour:
   availableMaterials: []
   _maxSize: 100
   _rotationVelocity: 30
-  debugMode: 1
+  debugMode: 0
   orbitMarker: {fileID: 1208074006869236, guid: 45dbcc74cdbf9f44aab54655fa409200,
     type: 2}
+  initOrbitSpeed: 10
 --- !u!135 &135769041315155628
 SphereCollider:
   m_ObjectHideFlags: 1
