@@ -95,14 +95,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad237cdfbd4001d47add3bd993a8741f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availableMaterials: []
+  availableMaterials:
+  - {fileID: 0}
+  - {fileID: 0}
   _maxSize: 100
   _rotationVelocity: 30
   debugMode: 1
   orbitMarker: {fileID: 1208074006869236, guid: 45dbcc74cdbf9f44aab54655fa409200,
     type: 2}
   msgRate: 1
-  initOrbitSpeed: 10
+  _orbitSpeed: 15
 --- !u!135 &135769041315155628
 SphereCollider:
   m_ObjectHideFlags: 1
