@@ -8,7 +8,7 @@ public class CelestialBody : MonoBehaviour
 	
 	private static float _timeMultiplier = 1.0f;
 	
-	public const float MinimumSeparatingDistance = 10.0f;
+	public const float MinimumSeparatingDistance = 15.0f;
 
 	[SerializeField]
 	private float _maxSize = 100.0f;
@@ -164,6 +164,7 @@ public class CelestialBody : MonoBehaviour
 	public void Remove()
 	{
 		// TODO: destroy this CB and everything orbiting it
+		// orbit path, satellites, etc.
 
 		// not if initial star
 		if (this.CompareTag("InitialStar"))

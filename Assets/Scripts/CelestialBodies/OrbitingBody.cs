@@ -6,11 +6,13 @@ public class OrbitingBody : CelestialBody, ISatellite
 	public bool debugMode = false;
 	public GameObject orbitMarker;
 	private GameObject[] markers;
-	
+	public float msgRate = 1.0f;
+	private float _nextMsg;
+
+	//public float initOrbitSpeed = 10.0f;
+
 	[Range(1.0f, 500.0f)]
-	public float initOrbitSpeed = 10.0f;
-	
-	private float _orbitSpeed = 10.0f;
+	public float _orbitSpeed = 15.0f;
 	
 	private OrbitPath _path;
 	private int _pointIndex = 0;
@@ -88,7 +90,9 @@ public class OrbitingBody : CelestialBody, ISatellite
 	{
 		base.Start();
 		
-		OrbitSpeed = initOrbitSpeed;
+		//OrbitSpeed = initOrbitSpeed;
+
+		_nextMsg = 0.0f;
 	}
 	
 	protected override void FixedUpdate()
@@ -170,21 +174,21 @@ public class OrbitingBody : CelestialBody, ISatellite
 		}
 		
 		_nextPathPoint = _path.GetWorldPointByIndex(_pointIndex);
-		//_nextPathPoint = _path.GetLocalPointByIndex(_pointIndex);
 	}
 	
 	public void TraversePath()
 	{
-		if (transform.position == transform.TransformPoint(_nextPathPoint))
+		if (transform.position == _nextPathPoint)
 		{
 			this.GetNextPathPoint();
+			if (debugMode)
+				Debug.Log("moving to path point " + _nextPathPoint.ToString());
 		}
-		
+
 		transform.position = Vector3.MoveTowards(
 			transform.position,
-			//transform.TransformPoint(_nextPathPoint),
 			_nextPathPoint,
-			TimeMultiplier * _orbitSpeed * Time.time);
+			TimeMultiplier * _orbitSpeed * Time.deltaTime);
 	}
 
 	public override void AddOrbitingBody(ISatellite body)

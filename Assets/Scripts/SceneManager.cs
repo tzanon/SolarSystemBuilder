@@ -127,8 +127,6 @@ public class SceneManager : MonoBehaviour {
 			furthestRegionLimit = primary.FurthestSatellite.Region.Max;
 		}
 
-		//Debug.Log("size of body is " + templates[type].Size);
-
 		float orbitRadius = furthestRegionLimit + CelestialBody.MinimumSeparatingDistance + templates[type].Size;
 		OrbitPath path = Instantiate(orbitPathTemplate);
 
@@ -165,6 +163,11 @@ public class SceneManager : MonoBehaviour {
 
 	public void UpdateDisplayInfo()
 	{
+		if (!orbitListDisplay || !numSatellitesDisplay || !furthestOrbitDisplay)
+		{
+			return;
+		}
+
 		orbitListDisplay.text = initialStar.SatellitesToString();
 		numSatellitesDisplay.text = "Satellites: " + initialStar.NumSatellites;
 
