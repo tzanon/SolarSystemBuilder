@@ -19,8 +19,6 @@ public class MenuButton : MonoBehaviour {
 	
 	void Start () {
 		_buttonImage = GetComponent<Image>();
-		
-		
 	}
 	
 	public void Default()

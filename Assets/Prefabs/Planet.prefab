@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114644460223634540}
   m_Layer: 0
   m_Name: Planet
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   orbitMarker: {fileID: 1208074006869236, guid: 45dbcc74cdbf9f44aab54655fa409200,
     type: 2}
   msgRate: 1
-  initOrbitSpeed: 10
+  _orbitSpeed: 15
 --- !u!135 &135254079510142596
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - InitialStar
+  - RegularStar
+  - Planet
+  - Moon
   layers:
   - Default
   - TransparentFX

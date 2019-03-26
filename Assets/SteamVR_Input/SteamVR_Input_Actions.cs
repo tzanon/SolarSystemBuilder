@@ -61,6 +61,8 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_tZ643P_ToggleMenu;
         
+        private static SteamVR_Action_Pose p_tZ643P_Pose;
+        
         private static SteamVR_Action_Vibration p_tZ643P_Haptic;
         
         public static SteamVR_Action_Boolean default_InteractUI
@@ -239,6 +241,14 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Action_Pose tZ643P_Pose
+        {
+            get
+            {
+                return SteamVR_Actions.p_tZ643P_Pose.GetCopy <SteamVR_Action_Pose>();
+            }
+        }
+        
         public static SteamVR_Action_Vibration tZ643P_Haptic
         {
             get
@@ -273,6 +283,7 @@ namespace Valve.VR
                     SteamVR_Actions.tZ643P_ToggleLaser,
                     SteamVR_Actions.tZ643P_Select,
                     SteamVR_Actions.tZ643P_ToggleMenu,
+                    SteamVR_Actions.tZ643P_Pose,
                     SteamVR_Actions.tZ643P_Haptic};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[]
             {
@@ -296,7 +307,8 @@ namespace Valve.VR
                     SteamVR_Actions.tZ643P_InteractUI,
                     SteamVR_Actions.tZ643P_ToggleLaser,
                     SteamVR_Actions.tZ643P_Select,
-                    SteamVR_Actions.tZ643P_ToggleMenu};
+                    SteamVR_Actions.tZ643P_ToggleMenu,
+                    SteamVR_Actions.tZ643P_Pose};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[]
             {
                     SteamVR_Actions.default_Haptic,
@@ -308,7 +320,8 @@ namespace Valve.VR
             Valve.VR.SteamVR_Input.actionsPose = new Valve.VR.SteamVR_Action_Pose[]
             {
                     SteamVR_Actions.default_Pose,
-                    SteamVR_Actions.mixedreality_ExternalCamera};
+                    SteamVR_Actions.mixedreality_ExternalCamera,
+                    SteamVR_Actions.tZ643P_Pose};
             Valve.VR.SteamVR_Input.actionsBoolean = new Valve.VR.SteamVR_Action_Boolean[]
             {
                     SteamVR_Actions.default_InteractUI,
@@ -382,6 +395,7 @@ namespace Valve.VR
             SteamVR_Actions.p_tZ643P_ToggleLaser = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/TZ643P/in/ToggleLaser")));
             SteamVR_Actions.p_tZ643P_Select = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/TZ643P/in/Select")));
             SteamVR_Actions.p_tZ643P_ToggleMenu = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/TZ643P/in/ToggleMenu")));
+            SteamVR_Actions.p_tZ643P_Pose = ((SteamVR_Action_Pose)(SteamVR_Action.Create <SteamVR_Action_Pose>("/actions/TZ643P/in/Pose")));
             SteamVR_Actions.p_tZ643P_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create <SteamVR_Action_Vibration>("/actions/TZ643P/out/Haptic")));
         }
     }

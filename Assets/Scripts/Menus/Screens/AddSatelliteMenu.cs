@@ -1,0 +1,45 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AddSatelliteMenu : BaseMenu {
+
+	public BaseMenu previousMenu;
+
+	public GameObject primeStarOptions;
+	public GameObject regularStarOptions;
+	public GameObject planetOptions;
+
+	private void Start () {
+		HideOptions ();
+	}
+
+	public override void Show () {
+		base.Show ();
+		this.DisplayOptions ();
+	}
+
+	public void HideOptions () {
+		primeStarOptions.SetActive (false);
+		regularStarOptions.SetActive (false);
+		planetOptions.SetActive (false);
+	}
+
+	public void DisplayOptions () {
+		GameObject sel = sceneManager.user.selectedCB;
+
+		HideOptions ();
+
+		if (!sel)
+			return;
+
+		if (sel.CompareTag ("InitialStar")) {
+			primeStarOptions.SetActive (true);
+		} else if (sel.CompareTag ("RegularStar")) {
+			regularStarOptions.SetActive (true);
+		} else if (sel.CompareTag ("Planet")) {
+			planetOptions.SetActive (true);
+		}
+	}
+
+}

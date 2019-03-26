@@ -7,6 +7,8 @@ public class SceneManager : MonoBehaviour {
 	public bool debugMode = false;
 	private bool _sceneIsEditable;
 
+	public User user;
+
 	public Text orbitListDisplay;
 	public Text numSatellitesDisplay;
 	public Text furthestOrbitDisplay;
@@ -112,7 +114,6 @@ public class SceneManager : MonoBehaviour {
 		 * 3) add satellite at some radius s.t. not overlapping with former furthest
 		 */
 
-
 		if (!_sceneIsEditable)
 			return;
 
@@ -137,7 +138,6 @@ public class SceneManager : MonoBehaviour {
 		 * set satellite's path
 		 * add satellite to SM's list of CBs
 		 */
-		 
 		
 		OrbitingBody satellite = Instantiate(templates[type]);
 		satellite.InitSatellite(primary, path, orbitRadius, orbitRadius);

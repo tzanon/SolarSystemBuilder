@@ -94,6 +94,10 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/TZ643P/in/Pose",
+      "type": "pose"
+    },
+    {
       "name": "/actions/TZ643P/out/Haptic",
       "type": "vibration"
     }
@@ -117,7 +121,7 @@
     },
     {
       "name": "/actions/TZ643P",
-      "usage": "single"
+      "usage": "leftright"
     }
   ],
   "default_bindings": [

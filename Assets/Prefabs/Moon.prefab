@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114322730684857488}
   m_Layer: 0
   m_Name: Moon
-  m_TagString: Untagged
+  m_TagString: Moon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +101,8 @@ MonoBehaviour:
   debugMode: 1
   orbitMarker: {fileID: 1208074006869236, guid: 45dbcc74cdbf9f44aab54655fa409200,
     type: 2}
-  initOrbitSpeed: 10
+  msgRate: 1
+  _orbitSpeed: 15
 --- !u!135 &135394072784773308
 SphereCollider:
   m_ObjectHideFlags: 1
