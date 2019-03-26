@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class PrimeStarMenu : BaseMenu {
 
-	
+	public AddSatelliteMenu addSatelliteMenu;
+	public CelestialBody initialStar;
 
-	// Use this for initialization
-	void Start () {
-
+	public override void Init () {
+		initialStar = sceneManager.initialStar;
 	}
 
-	// Update is called once per frame
-	void Update () {
-		
+	public void NextTexture () {
+		Debug.Log ("next texture");
 	}
+
+	public void PreviousTexture () {
+		Debug.Log ("previous texture");
+	}
+
+	public void ListSatellitesToAdd () {
+		menuManager.ActivateMenu(MenuManager.MenuType.AddSatelltie);
+	}
+
 }

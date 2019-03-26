@@ -4,20 +4,47 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour {
 
-	public SceneManager sm;
+	public enum MenuType { Edit, View, PrimeStar, RegularStar, Planet, Moon, AddSatelltie }
+
+	private SceneManager sm;
 
 	private BaseMenu currentMenu;
 
+	public EditModeMenu editModeMenu;
+	public ViewModeMenu viewModeMenu;
+	public PrimeStarMenu primeStarMenu;
+	public AddSatelliteMenu addSatelliteMenu;
+
+	public BaseMenu regularStarMenu;
+	public BaseMenu planetMenu;
+
+	private Dictionary<MenuType, BaseMenu> menus;
+
 	void Start () {
+		sm = GetComponent<SceneManager>();
+
 		BaseMenu.sceneManager = this.sm;
 		BaseMenu.menuManager = this;
+
+		menus = new Dictionary<MenuType, BaseMenu> () {
+			{ MenuType.Edit, editModeMenu },
+			{ MenuType.View, viewModeMenu },
+			{ MenuType.PrimeStar, primeStarMenu },
+			{ MenuType.AddSatelltie, addSatelliteMenu },
+		};
 	}
 
-	public void ActivateMenu (BaseMenu menuToActivate) {
-		currentMenu.Hide ();
+	public void ActivateMenu (MenuType type) {
+		this.ActivateMenu(menus[type]);
+	}
 
-		currentMenu = menuToActivate;
-		currentMenu.Show ();
+	public void ActivateMenu (BaseMenu menu) {
+		if (currentMenu)
+			currentMenu.Hide ();
+
+		currentMenu = menu;
+		currentMenu.gameObject.SetActive (true);
+		currentMenu.Init ();
 	}
 
 }

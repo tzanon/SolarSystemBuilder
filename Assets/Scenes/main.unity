@@ -680,6 +680,68 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1240010848}
   m_Script: {fileID: 11500000, guid: 7c030ca229520be4aaacb721847fdc5d, type: 3}
+--- !u!1001 &1197552997
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4438305195626368, guid: 319e932cd20cc7540b450d5cc0a453ee, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438305195626368, guid: 319e932cd20cc7540b450d5cc0a453ee, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438305195626368, guid: 319e932cd20cc7540b450d5cc0a453ee, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438305195626368, guid: 319e932cd20cc7540b450d5cc0a453ee, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438305195626368, guid: 319e932cd20cc7540b450d5cc0a453ee, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438305195626368, guid: 319e932cd20cc7540b450d5cc0a453ee, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438305195626368, guid: 319e932cd20cc7540b450d5cc0a453ee, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438305195626368, guid: 319e932cd20cc7540b450d5cc0a453ee, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114241528515624300, guid: 319e932cd20cc7540b450d5cc0a453ee,
+        type: 2}
+      propertyPath: orbitListDisplay
+      value: 
+      objectReference: {fileID: 153569284}
+    - target: {fileID: 114241528515624300, guid: 319e932cd20cc7540b450d5cc0a453ee,
+        type: 2}
+      propertyPath: numSatellitesDisplay
+      value: 
+      objectReference: {fileID: 524641782}
+    - target: {fileID: 114241528515624300, guid: 319e932cd20cc7540b450d5cc0a453ee,
+        type: 2}
+      propertyPath: furthestOrbitDisplay
+      value: 
+      objectReference: {fileID: 2096703847}
+    - target: {fileID: 114241528515624300, guid: 319e932cd20cc7540b450d5cc0a453ee,
+        type: 2}
+      propertyPath: initialStar
+      value: 
+      objectReference: {fileID: 1163139857}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 319e932cd20cc7540b450d5cc0a453ee, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1240010848
 Prefab:
   m_ObjectHideFlags: 0
@@ -776,60 +838,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 19fee24a7a781434bac765bdd9bbd3e6, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1878189287
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1878189288}
-  - component: {fileID: 1878189289}
-  m_Layer: 0
-  m_Name: SceneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1878189288
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1878189287}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1878189289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1878189287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21646bacc0c68704d8ba3bf503ce207f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugMode: 1
-  orbitListDisplay: {fileID: 153569284}
-  numSatellitesDisplay: {fileID: 524641782}
-  furthestOrbitDisplay: {fileID: 2096703847}
-  starTemplate: {fileID: 114116938985389448, guid: b43f26d3f3325754ab16126994614073,
-    type: 2}
-  planetTemplate: {fileID: 114644460223634540, guid: f3ad8b4efb4fdf648a0014d9b3613f4e,
-    type: 2}
-  moonTemplate: {fileID: 114322730684857488, guid: 19fee24a7a781434bac765bdd9bbd3e6,
-    type: 2}
-  orbitPathTemplate: {fileID: 114449747578819692, guid: 07a4e253cc1160a4db21d6d72f3537ad,
-    type: 2}
-  initialStar: {fileID: 1163139857}
-  bodies: []
 --- !u!1 &1894626310
 GameObject:
   m_ObjectHideFlags: 0

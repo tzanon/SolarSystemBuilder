@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class SceneManager : MonoBehaviour {
 
+	MenuManager menuManager;
+
 	public bool debugMode = false;
 	private bool _sceneIsEditable;
 
@@ -26,8 +28,7 @@ public class SceneManager : MonoBehaviour {
 
 	public List<OrbitingBody> bodies = new List<OrbitingBody> ();
 
-	public bool SceneIsEditable
-	{
+	public bool SceneIsEditable {
 		get { return _sceneIsEditable; }
 	}
 
@@ -36,77 +37,74 @@ public class SceneManager : MonoBehaviour {
 	}
 
 	private void Start () {
-		templates = new Dictionary<CelestialType, OrbitingBody>
-		{
+		menuManager = GetComponent<MenuManager>();
+
+		templates = new Dictionary<CelestialType, OrbitingBody> {
 			{ CelestialType.Star, starTemplate },
 			{ CelestialType.Planet, planetTemplate },
 			{ CelestialType.Moon, moonTemplate }
 		};
 
-		this.SetEditMode();
-		UpdateDisplayInfo();
+		this.SetEditMode ();
+
+		// for testing
+		user.SelectInitStar(initialStar);
+
+		if (debugMode)
+			UpdateDisplayInfo ();
 	}
 
-	private void Update()
-	{
-		if (debugMode)
-		{
+	private void Update () {
+		if (debugMode) {
 			// toggle mode
-			if (Input.GetKeyDown(KeyCode.M))
-			{
-				if (SceneIsEditable)
-				{
-					Debug.Log("now in view mode");
-					SetViewMode();
-				}
-				else
-				{
-					Debug.Log("now in edit mode");
-					SetEditMode();
+			if (Input.GetKeyDown (KeyCode.M)) {
+				if (SceneIsEditable) {
+					Debug.Log ("now in view mode");
+					SetViewMode ();
+				} else {
+					Debug.Log ("now in edit mode");
+					SetEditMode ();
 				}
 			}
 
-			if (Input.GetKeyDown(KeyCode.I))
-			{
-				initialStar.PrintOrbits();
+			if (Input.GetKeyDown (KeyCode.I)) {
+				initialStar.PrintOrbits ();
 			}
 
 			// spawn a star
-			if (Input.GetKeyDown(KeyCode.S))
-			{
-				Debug.Log("added star");
-				this.AddSatellite(initialStar, CelestialType.Star);
+			if (Input.GetKeyDown (KeyCode.S)) {
+				Debug.Log ("added star");
+				this.AddSatellite (CelestialType.Star);
 			}
 
 			// spawn a planet
-			if (Input.GetKeyDown(KeyCode.P))
-			{
-				Debug.Log("added planet");
-				this.AddSatellite(initialStar, CelestialType.Planet);
+			if (Input.GetKeyDown (KeyCode.P)) {
+				Debug.Log ("added planet");
+				this.AddSatellite (CelestialType.Planet);
 			}
 		}
 	}
 
-	public void SetEditMode()
-	{
+	public void SetEditMode () {
 		_sceneIsEditable = true;
 		CelestialBody.TimeMultiplier = 0.0f;
 
-		// TODO: set user's menu accordingly
-
+		// set user's menu accordingly
+		if (menuManager)
+			menuManager.ActivateMenu(MenuManager.MenuType.Edit);
 	}
 
-	public void SetViewMode()
-	{
+	public void SetViewMode () {
 		_sceneIsEditable = false;
 		CelestialBody.TimeMultiplier = 1.0f;
 
-		// TODO: set user's menu accordingly
-
+		// set user's menu accordingly
+		if (menuManager)
+			menuManager.ActivateMenu(MenuManager.MenuType.View);
 	}
 
 	/* adds a satellite in orbit around an existing body */
-	public void AddSatellite (CelestialBody primary, CelestialType type) {
+	public void AddSatellite (CelestialType type) {
 		/* 
 		 * TODO:
 		 * 1) get larger radius of primary's furthest orbital path
@@ -117,39 +115,43 @@ public class SceneManager : MonoBehaviour {
 		if (!_sceneIsEditable)
 			return;
 
+		CelestialBody primary;
+
+		if (!user) {
+			primary = initialStar;
+		} else if ((primary = user.selectedObject.GetComponent<CelestialBody> ()) == null) {
+			return;
+		}
+
 		float furthestRegionLimit;
 
-		if (primary.NumSatellites <= 0)
-		{
+		if (primary.NumSatellites <= 0) {
 			furthestRegionLimit = primary.Size;
-		}
-		else
-		{
+		} else {
 			furthestRegionLimit = primary.FurthestSatellite.Region.Max;
 		}
 
 		float orbitRadius = furthestRegionLimit + CelestialBody.MinimumSeparatingDistance + templates[type].Size;
-		OrbitPath path = Instantiate(orbitPathTemplate);
+		OrbitPath path = Instantiate (orbitPathTemplate);
 
-		Debug.Log("orbit radius is " + orbitRadius);
-		
+		Debug.Log ("orbit radius is " + orbitRadius);
+
 		/*
 		 * TODO: spawn satellite at path's north position
 		 * set satellite's path
 		 * add satellite to SM's list of CBs
 		 */
-		
-		OrbitingBody satellite = Instantiate(templates[type]);
-		satellite.InitSatellite(primary, path, orbitRadius, orbitRadius);
 
-		primary.AddOrbitingBody(satellite);
+		OrbitingBody satellite = Instantiate (templates[type]);
+		satellite.InitSatellite (primary, path, orbitRadius, orbitRadius);
+
+		primary.AddOrbitingBody (satellite);
 
 		if (debugMode)
-			UpdateDisplayInfo();
+			UpdateDisplayInfo ();
 	}
 
-	public void RemoveSatellite()
-	{
+	public void RemoveSatellite () {
 
 	}
 
@@ -161,14 +163,12 @@ public class SceneManager : MonoBehaviour {
 
 	}
 
-	public void UpdateDisplayInfo()
-	{
-		if (!orbitListDisplay || !numSatellitesDisplay || !furthestOrbitDisplay)
-		{
+	public void UpdateDisplayInfo () {
+		if (!orbitListDisplay || !numSatellitesDisplay || !furthestOrbitDisplay) {
 			return;
 		}
 
-		orbitListDisplay.text = initialStar.SatellitesToString();
+		orbitListDisplay.text = initialStar.SatellitesToString ();
 		numSatellitesDisplay.text = "Satellites: " + initialStar.NumSatellites;
 
 		ISatellite furthest = initialStar.FurthestSatellite;

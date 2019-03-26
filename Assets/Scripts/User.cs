@@ -4,7 +4,10 @@ using Valve.VR;
 
 public class User : MonoBehaviour {
 
-	public GameObject selectedCB;
+	public SceneManager sceneManager;
+	public MenuManager menuManager;
+
+	public GameObject selectedObject;
 
 	SteamVR_Input_Sources menuHand;
 	SteamVR_Input_Sources selectHand;
@@ -41,6 +44,9 @@ public class User : MonoBehaviour {
 		select2 = SteamVR_Actions._default.GrabGrip;
 
 		//Debug.Log ("starting");
+
+		// initial testing
+		//SelectInitStar();
 	}
 
 	private void Update () {
@@ -84,6 +90,24 @@ public class User : MonoBehaviour {
 	public void SelectWithRightHand () {
 		menuHand = SteamVR_Input_Sources.LeftHand;
 		selectHand = SteamVR_Input_Sources.RightHand;
+	}
+
+	public void SelectInitStar (CelestialBody initStar) {
+		selectedObject = initStar.gameObject;
+
+		menuManager.ActivateMenu(MenuManager.MenuType.PrimeStar);
+	}
+
+	public void SelectRegularStar (OrbitingBody toSelect) {
+
+	}
+
+	public void SelectPlanet (OrbitingBody toSelect) {
+
+	}
+
+	public void SelectMoon (OrbitingBody toSelect) {
+
 	}
 
 }

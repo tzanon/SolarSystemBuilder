@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class ViewModeMenu : BaseMenu {
 
-	
+	public override void Init()
+    {
+        
+    }
 }
