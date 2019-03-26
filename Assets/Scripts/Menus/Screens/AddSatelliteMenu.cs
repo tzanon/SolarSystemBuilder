@@ -5,11 +5,15 @@ using UnityEngine;
 public class AddSatelliteMenu : BaseMenu {
 
 	public BaseMenu previousMenu;
-
+	
 	public GameObject primeStarOptions;
 	public GameObject regularStarOptions;
 	public GameObject planetOptions;
-
+	
+	public BaseMenu primeStarMenu;
+	public BaseMenu regularStarMenu;
+	public BaseMenu planetMenu;
+	
 	private void Start () {
 		HideOptions ();
 	}
@@ -27,19 +31,22 @@ public class AddSatelliteMenu : BaseMenu {
 
 	public void DisplayOptions () {
 		GameObject sel = sceneManager.user.selectedCB;
-
+		
 		HideOptions ();
-
+		
 		if (!sel)
 			return;
-
+		
 		if (sel.CompareTag ("InitialStar")) {
 			primeStarOptions.SetActive (true);
+			previousMenu = primeStarMenu;
 		} else if (sel.CompareTag ("RegularStar")) {
 			regularStarOptions.SetActive (true);
+			previousMenu = regularStarMenu;
 		} else if (sel.CompareTag ("Planet")) {
 			planetOptions.SetActive (true);
+			previousMenu = planetMenu;
 		}
 	}
-
+	
 }
