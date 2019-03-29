@@ -8,10 +8,6 @@ public class AddSatelliteMenu : BaseMenu {
 	public GameObject regularStarOptions;
 	public GameObject planetOptions;
 
-	private void Start () {
-		HideOptions ();
-	}
-
 	public override void Init () {
 		this.ShowOptions ();
 	}

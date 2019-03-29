@@ -6,14 +6,20 @@ public class User : MonoBehaviour {
 
 	public bool debugMode = false;
 
+	/*  */
 	public SceneManager sceneManager;
 	public MenuManager menuManager;
 
+	/* interaction things */
 	public GameObject selectedObject;
+	public InteractHand interactingHand;
 
-	SteamVR_Input_Sources menuHand;
-	SteamVR_Input_Sources selectHand;
+	/* only if there's enough time */
+	public GameObject leftHand, RightHand;
+	private SteamVR_Input_Sources menuHand;
+	private SteamVR_Input_Sources selectHand;
 
+	/* SteamVR actions */
 	public SteamVR_ActionSet actionSetEnable;
 	public SteamVR_Action_Boolean toggleLaser;
 	public SteamVR_Action_Boolean select;
@@ -31,8 +37,7 @@ public class User : MonoBehaviour {
 
 		actionSetEnable.Activate ();
 
-		menuHand = SteamVR_Input_Sources.LeftHand;
-		selectHand = SteamVR_Input_Sources.RightHand;
+		this.SelectWithRightHand();
 
 		/*
 		toggleLaser = SteamVR_Actions.TZ643P.ToggleLaser;
@@ -45,17 +50,14 @@ public class User : MonoBehaviour {
 		toggle2 = SteamVR_Actions._default.GrabPinch;
 		select2 = SteamVR_Actions._default.GrabGrip;
 
-		//Debug.Log ("starting");
-
-		// initial testing
-		//SelectInitStar();
 	}
 
+	/* VR input handling */
 	private void Update () {
 		/* toggle interaction menu */
 		if (toggleMenu.GetStateDown (menuHand)) {
 			Debug.Log ("toggling menu");
-			//menu.gameObject.SetActive(!menu.gameObject.activeInHierarchy);
+			menu.gameObject.SetActive(!menu.gameObject.activeInHierarchy);
 		}
 
 		/* toggle selection laser on/off */
@@ -73,8 +75,15 @@ public class User : MonoBehaviour {
 		/* push a UI button, drag a slider, etc. */
 		if (menuInteract.GetStateDown (selectHand)) {
 			Debug.Log ("interacting");
+
+			interactingHand.UseControl();
+		}
+		if (menuInteract.GetStateUp (selectHand)) {
+			// stop using control (slider)
+			interactingHand.StopUsingControl();
 		}
 
+		// VR control debugging
 		if (debugMode)
 		{
 			if (toggle2.GetStateDown(SteamVR_Input_Sources.Any))
@@ -92,7 +101,6 @@ public class User : MonoBehaviour {
 		menuHand = SteamVR_Input_Sources.RightHand;
 		selectHand = SteamVR_Input_Sources.LeftHand;
 	}
-
 	public void SelectWithRightHand () {
 		menuHand = SteamVR_Input_Sources.LeftHand;
 		selectHand = SteamVR_Input_Sources.RightHand;

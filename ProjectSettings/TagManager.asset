@@ -9,6 +9,7 @@ TagManager:
   - Planet
   - Moon
   - InteractHand
+  - Control
   layers:
   - Default
   - TransparentFX

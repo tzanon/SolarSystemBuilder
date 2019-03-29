@@ -47,16 +47,18 @@ public class SceneManager : MonoBehaviour {
 			{ CelestialType.Moon, moonTemplate }
 		};
 
+		/* user stars in edit mode */
+		menuManager.ActivateMenu(MenuManager.MenuType.Edit);
 		this.SetEditMode ();
 
 		// for testing
-		user.SelectInitStar(initialStar);
+		//user.SelectInitStar(initialStar);
 
 		if (debugMode)
 			UpdateDisplayInfo ();
 	}
 
-	/*  */
+	/* keyboard (debug) input handling */
 	private void Update () {
 		if (debugMode) {
 			// toggle mode
@@ -91,7 +93,6 @@ public class SceneManager : MonoBehaviour {
 	public void SetEditMode () {
 		_sceneIsEditable = true;
 		CelestialBody.TimeMultiplier = 0.0f;
-
 	}
 
 	public void SetViewMode () {

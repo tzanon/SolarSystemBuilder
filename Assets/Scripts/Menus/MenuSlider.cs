@@ -1,17 +1,34 @@
 ﻿using UnityEngine;
 
-public class MenuSlider : MonoBehaviour {
+public class MenuSlider : MenuControl {
 
 	public const float MinValue = 0.0f;
 	public const float MaxValue = 1.0f;
 
-	// Use this for initialization
-	void Start () {
-		
+	public InteractHand interactingHand;
+
+	public override void Use()
+	{
+		// TODO: call event method with current slider value
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public void StopUsing()
+	{
+		// TODO: stop updating value
+
+		if (_isHovered)
+		{
+			this.Hover();
+		}
+		else
+		{
+			this.Default();
+		}
 	}
+
+	private void VisualizeUse()
+	{
+		_buttonImage.sprite = pressedSprite;
+	}
+
 }

@@ -15,11 +15,4 @@ public abstract class BaseMenu : MonoBehaviour {
 		this.gameObject.SetActive (false);
 	}
 
-	/*
-	public static void MakeMenuVisible (BaseMenu menu) {
-		menu.gameObject.SetActive (true);
-		menu.Init ();
-	}
-	*/
-
 }
