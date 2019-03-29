@@ -32,9 +32,13 @@ public class MenuSlider : MenuControl {
 
 			Vector3 handPos = interactingHand.WorldPosition;
 			Vector3 localHandPos = this.transform.InverseTransformPoint(handPos);
+			Vector3 scaledHandPos = this.transform.TransformDirection(localHandPos);
+			//Vector3 scaledHandPos = this.transform.TransformVector(localHandPos);
+
 			Vector3 knobPos = this.transform.localPosition;
 			
-			newPos = new Vector3(localHandPos.x, knobPos.y, knobPos.z);
+			//newPos = new Vector3(localHandPos.x, knobPos.y, knobPos.z);
+			newPos = new Vector3(scaledHandPos.x, knobPos.y, knobPos.z);
 
 			//Vector3 handPos = interactingHand.WorldPosition;
 			//Vector3 knobPos = this.transform.position;
@@ -52,12 +56,16 @@ public class MenuSlider : MenuControl {
 	protected override void OnTriggerExit(Collider other)
 	{
 		base.OnTriggerExit(other);
+
+		if (interactingHand && other.gameObject == interactingHand.gameObject)
+		{
+			interactingHand = null;
+		}
 	}
 	
 	public override void Use()
 	{
 		// TODO: call event method with current slider value
-
 		this.VisualizeUse();
 	}
 
@@ -78,7 +86,7 @@ public class MenuSlider : MenuControl {
 		
 		if (debugMode)
 		{
-			Debug.Log("Slider value: " + this.Value);
+			//Debug.Log("Slider value: " + this.Value);
 		}
 	}
 
