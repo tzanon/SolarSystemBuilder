@@ -17,6 +17,8 @@ public class PrimeStarMenu : BaseMenu {
 		Debug.Log ("previous texture");
 	}
 
+	
+
 	public void ListSatellitesToAdd () {
 		menuManager.ActivateMenu(MenuManager.MenuType.AddSatellite);
 	}

@@ -8,6 +8,11 @@ public class InteractHand : MonoBehaviour {
 
 	private MenuControl hoveredControl;
 
+	public Vector3 WorldPosition
+	{
+		get { return this.transform.position; }
+	}
+
 	private void Start () {
 		this.tag = "InteractHand";
 		
@@ -33,11 +38,20 @@ public class InteractHand : MonoBehaviour {
 			this.StopUsingControl();
 		}
 	}
-	
+
 	public void UseControl()
 	{
 		if (hoveredControl)
+		{
 			hoveredControl.Use();
+
+			MenuSlider slider;
+			if (slider = hoveredControl.GetComponent<MenuSlider>())
+			{
+				slider.interactingHand = this;
+			}
+
+		}
 	}
 
 	public void StopUsingControl()

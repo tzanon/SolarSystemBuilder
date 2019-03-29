@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public abstract class MenuControl : MonoBehaviour {
 
+	public static bool debugMode = false;
+
 	public UnityEvent OnPress;
 
 	public Sprite defaultSprite;
@@ -18,7 +20,7 @@ public abstract class MenuControl : MonoBehaviour {
 	
 	private Collider _collider;
 	
-	void Start () {
+	private void Start () {
 		this.tag = "Control";
 
 		_buttonImage = GetComponent<Image>();
@@ -26,7 +28,7 @@ public abstract class MenuControl : MonoBehaviour {
 		_collider.isTrigger = true;
 	}
 
-	void OnTriggerEnter(Collider other)
+	protected virtual void OnTriggerEnter(Collider other)
 	{
 		Debug.Log("trigger entered");
 		if (other.CompareTag("InteractHand"))
@@ -36,7 +38,7 @@ public abstract class MenuControl : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerExit(Collider other)
+	protected virtual void OnTriggerExit(Collider other)
 	{
 		Debug.Log("trigger exited");
 		if (other.CompareTag("InteractHand"))
