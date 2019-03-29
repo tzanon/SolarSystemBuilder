@@ -10,6 +10,18 @@ public class MenuSlider : MenuControl {
 
 	public InteractHand interactingHand;
 
+	public float Value
+	{
+		get
+		{
+			float trackPosition = this.transform.position.x + Mathf.Abs(minPos);
+			float range = Mathf.Abs(minPos) + Mathf.Abs(maxPos);
+			float value = trackPosition / range;
+			
+			return value;
+		}
+	}
+
 	private void Update()
 	{
 		if (interactingHand)
@@ -35,15 +47,13 @@ public class MenuSlider : MenuControl {
 	protected override void OnTriggerEnter(Collider other)
 	{
 		base.OnTriggerEnter(other);
-
 	}
 
 	protected override void OnTriggerExit(Collider other)
 	{
 		base.OnTriggerExit(other);
-
 	}
-
+	
 	public override void Use()
 	{
 		// TODO: call event method with current slider value
@@ -64,6 +74,11 @@ public class MenuSlider : MenuControl {
 		else
 		{
 			this.Default();
+		}
+		
+		if (debugMode)
+		{
+			Debug.Log("Slider value: " + this.Value);
 		}
 	}
 

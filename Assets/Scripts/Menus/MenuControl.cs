@@ -30,7 +30,6 @@ public abstract class MenuControl : MonoBehaviour {
 
 	protected virtual void OnTriggerEnter(Collider other)
 	{
-		Debug.Log("trigger entered");
 		if (other.CompareTag("InteractHand"))
 		{
 			Debug.Log("hover");
@@ -40,7 +39,6 @@ public abstract class MenuControl : MonoBehaviour {
 
 	protected virtual void OnTriggerExit(Collider other)
 	{
-		Debug.Log("trigger exited");
 		if (other.CompareTag("InteractHand"))
 		{
 			Debug.Log("default");
