@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PrimeStarMenu : BaseMenu {
 
@@ -20,7 +18,7 @@ public class PrimeStarMenu : BaseMenu {
 	}
 
 	public void ListSatellitesToAdd () {
-		menuManager.ActivateMenu(MenuManager.MenuType.AddSatelltie);
+		menuManager.ActivateMenu(MenuManager.MenuType.AddSatellite);
 	}
 
 }

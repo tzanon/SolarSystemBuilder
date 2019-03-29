@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuManager : MonoBehaviour {
 
-	public enum MenuType { Edit, View, PrimeStar, RegularStar, Planet, Moon, AddSatelltie }
+	public enum MenuType { Edit, View, PrimeStar, RegularStar, Planet, Moon, AddSatellite }
 
 	private SceneManager sm;
 
@@ -30,7 +29,7 @@ public class MenuManager : MonoBehaviour {
 			{ MenuType.Edit, editModeMenu },
 			{ MenuType.View, viewModeMenu },
 			{ MenuType.PrimeStar, primeStarMenu },
-			{ MenuType.AddSatelltie, addSatelliteMenu },
+			{ MenuType.AddSatellite, addSatelliteMenu }
 		};
 	}
 

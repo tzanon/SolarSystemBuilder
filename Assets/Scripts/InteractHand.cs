@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InteractHand : MonoBehaviour {
 
-	// Use this for initialization
+	private LineRenderer lr;
+
 	void Start () {
 		this.tag = "InteractHand";
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	
 }

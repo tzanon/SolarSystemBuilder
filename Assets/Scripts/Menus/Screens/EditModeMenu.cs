@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EditModeMenu : BaseMenu {
 
@@ -8,4 +6,11 @@ public class EditModeMenu : BaseMenu {
     {
         
     }
+
+	public void GoToViewMenu()
+	{
+		menuManager.ActivateMenu(MenuManager.MenuType.View);
+		sceneManager.SetViewMode();
+	}
+
 }

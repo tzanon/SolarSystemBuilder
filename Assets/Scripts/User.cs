@@ -4,6 +4,8 @@ using Valve.VR;
 
 public class User : MonoBehaviour {
 
+	public bool debugMode = false;
+
 	public SceneManager sceneManager;
 	public MenuManager menuManager;
 
@@ -50,16 +52,10 @@ public class User : MonoBehaviour {
 	}
 
 	private void Update () {
+		/* toggle interaction menu */
 		if (toggleMenu.GetStateDown (menuHand)) {
 			Debug.Log ("toggling menu");
 			//menu.gameObject.SetActive(!menu.gameObject.activeInHierarchy);
-		}
-
-		if (toggle2.GetStateDown (SteamVR_Input_Sources.Any)) {
-			//Debug.Log ("default: toggling laser");
-		}
-		if (select2.GetStateDown (SteamVR_Input_Sources.Any)) {
-			//Debug.Log ("defaulting: selecting");
 		}
 
 		/* toggle selection laser on/off */
@@ -72,13 +68,23 @@ public class User : MonoBehaviour {
 		}
 		/* teleport to the hovered object */
 		if (teleport.GetStateDown (selectHand)) {
-			//if (teleport.GetStateDown (SteamVR_Input_Sources.Any)) {
 			Debug.Log ("teleporting");
 		}
 		/* push a UI button, drag a slider, etc. */
 		if (menuInteract.GetStateDown (selectHand)) {
-			//if (menuInteract.GetStateDown (SteamVR_Input_Sources.Any)) {
 			Debug.Log ("interacting");
+		}
+
+		if (debugMode)
+		{
+			if (toggle2.GetStateDown(SteamVR_Input_Sources.Any))
+			{
+				Debug.Log("default: toggling laser");
+			}
+			if (select2.GetStateDown(SteamVR_Input_Sources.Any))
+			{
+				Debug.Log("defaulting: selecting");
+			}
 		}
 	}
 
@@ -94,7 +100,6 @@ public class User : MonoBehaviour {
 
 	public void SelectInitStar (CelestialBody initStar) {
 		selectedObject = initStar.gameObject;
-
 		menuManager.ActivateMenu(MenuManager.MenuType.PrimeStar);
 	}
 

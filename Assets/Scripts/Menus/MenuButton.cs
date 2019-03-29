@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -72,7 +71,7 @@ public class MenuButton : MonoBehaviour {
 	{
 		_buttonImage.sprite = pressedSprite;
 		
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.5f);
 		
 		if (_isHovered)
 		{

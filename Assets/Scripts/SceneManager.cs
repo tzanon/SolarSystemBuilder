@@ -32,10 +32,12 @@ public class SceneManager : MonoBehaviour {
 		get { return _sceneIsEditable; }
 	}
 
+	/*  */
 	private void Awake () {
 		CelestialBody.TimeMultiplier = 0.0f;
 	}
 
+	/*  */
 	private void Start () {
 		menuManager = GetComponent<MenuManager>();
 
@@ -54,6 +56,7 @@ public class SceneManager : MonoBehaviour {
 			UpdateDisplayInfo ();
 	}
 
+	/*  */
 	private void Update () {
 		if (debugMode) {
 			// toggle mode
@@ -89,18 +92,14 @@ public class SceneManager : MonoBehaviour {
 		_sceneIsEditable = true;
 		CelestialBody.TimeMultiplier = 0.0f;
 
-		// set user's menu accordingly
-		if (menuManager)
-			menuManager.ActivateMenu(MenuManager.MenuType.Edit);
 	}
 
 	public void SetViewMode () {
 		_sceneIsEditable = false;
-		CelestialBody.TimeMultiplier = 1.0f;
 
-		// set user's menu accordingly
-		if (menuManager)
-			menuManager.ActivateMenu(MenuManager.MenuType.View);
+		// TODO: change this, make multiplier current slider value
+		// or set slider at full position
+		CelestialBody.TimeMultiplier = 1.0f;
 	}
 
 	/* adds a satellite in orbit around an existing body */
