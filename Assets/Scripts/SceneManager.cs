@@ -103,6 +103,11 @@ public class SceneManager : MonoBehaviour {
 		CelestialBody.TimeMultiplier = 1.0f;
 	}
 
+	public void AddSatellite(CelestialBody cb, CelestialType type)
+	{
+		
+	}
+
 	/* adds a satellite in orbit around an existing body */
 	public void AddSatellite (CelestialType type) {
 		/* 

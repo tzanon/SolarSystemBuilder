@@ -117,31 +117,25 @@ public class User : MonoBehaviour {
 	private void SelectObject()
 	{
 		selectedObject = interactingHand.Select();
-
 		if (selectedObject)
 		{
 			if (selectedObject.CompareTag("InitialStar"))
 			{
-				
+				menuManager.ActivateMenu(MenuManager.MenuType.PrimeStar);
+			}
+			else if (selectedObject.CompareTag("RegularStar"))
+			{
+				menuManager.ActivateMenu(MenuManager.MenuType.RegularStar);
+			}
+			else if (selectedObject.CompareTag("Planet"))
+			{
+				menuManager.ActivateMenu(MenuManager.MenuType.Planet);
+			}
+			else if (selectedObject.CompareTag("Moon"))
+			{
+				menuManager.ActivateMenu(MenuManager.MenuType.Moon);
 			}
 		}
-	}
-
-	public void SelectInitStar (CelestialBody initStar) {
-		selectedObject = initStar.gameObject;
-		menuManager.ActivateMenu(MenuManager.MenuType.PrimeStar);
-	}
-
-	public void SelectRegularStar (OrbitingBody toSelect) {
-
-	}
-
-	public void SelectPlanet (OrbitingBody toSelect) {
-
-	}
-
-	public void SelectMoon (OrbitingBody toSelect) {
-
 	}
 
 }

@@ -2,7 +2,7 @@
 
 public class AddSatelliteMenu : BaseMenu {
 
-	public BaseMenu previousMenu;
+	private BaseMenu previousMenu;
 
 	public GameObject primeStarOptions;
 	public GameObject regularStarOptions;
@@ -37,7 +37,7 @@ public class AddSatelliteMenu : BaseMenu {
 			previousMenu = menuManager.planetMenu;
 		}
 	}
-
+	
 	public void AddStar () {
 		sceneManager.AddSatellite (SceneManager.CelestialType.Star);
 	}

@@ -1,22 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class PrimeStarMenu : BaseMenu {
-
-	public AddSatelliteMenu addSatelliteMenu;
-	public CelestialBody initialStar;
-
-	public override void Init () {
-		initialStar = sceneManager.initialStar;
-	}
-
+public class MoonMenu : BaseMenu {
+	
+	public override void Init() {}
+	
 	public void NextTexture () {
 		Debug.Log ("next texture");
-		
 	}
 
 	public void PreviousTexture () {
 		Debug.Log ("previous texture");
-		
 	}
 	
 	public void ChangeTiltX(float sliderValue)
@@ -39,13 +34,19 @@ public class PrimeStarMenu : BaseMenu {
 		
 	}
 	
-	public void ChangeLuminosity(float sliderValue)
+	public void ChangeOrbitRad1(float sliderValue)
 	{
 		
 	}
 	
-	public void ListSatellitesToAdd () {
-		menuManager.ActivateMenu(MenuManager.MenuType.AddSatellite);
+	public void ChangeOrbitRad2(float sliderValue)
+	{
+		
 	}
-
+	
+	public void ChangeOrbitSpeed(float sliderValue)
+	{
+		
+	}
+	
 }
