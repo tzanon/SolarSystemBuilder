@@ -10,9 +10,9 @@ public class InteractHand : MonoBehaviour {
 	/* need different trigger regions for touch and vive controllers */
 	public bool usingVive;
 	private readonly Vector3 touchTriggerPos = new Vector3(0.0f, -0.03f, -0.05f);
-	private const float touchTriggerRadius = 0.3f;
+	private const float touchTriggerRadius = 0.03f;
 	private readonly Vector3 viveTriggerPos = new Vector3(0.0f, -0.05f, 0.03f);
-	private const float viveTriggerRadius = 0.3f;
+	private const float viveTriggerRadius = 0.03f;
 
 
 	public float laserRange = Mathf.Infinity;
@@ -117,13 +117,13 @@ public class InteractHand : MonoBehaviour {
 	public GameObject Select()
 	{
 		// if an object is already selected, remove highlight
-		if (_selectedObject)
+		if (_selectedObject && lr.enabled)
 		{
 			Debug.Log("deselecting object " + _selectedObject.ToString());
 			Deselect();
 		}
 		
-		Debug.Log("attempting to select object " + _hoveredObject);
+		//Debug.Log("attempting to select object " + _hoveredObject);
 
 		// select the object that the laser is pointing at
 		if (_hoveredObject && lr.enabled)

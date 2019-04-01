@@ -97,15 +97,9 @@ public class SceneManager : MonoBehaviour {
 
 	public void SetViewMode () {
 		_sceneIsEditable = false;
-
 		// TODO: change this, make multiplier current slider value
 		// or set slider at full position
 		CelestialBody.TimeMultiplier = 1.0f;
-	}
-
-	public void AddSatellite(CelestialBody cb, CelestialType type)
-	{
-		
 	}
 
 	/* adds a satellite in orbit around an existing body */

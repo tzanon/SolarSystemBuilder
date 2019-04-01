@@ -3,9 +3,13 @@ using UnityEngine;
 
 public class OrbitingBodyMenu : BaseMenu {
 
-	public OrbitingBody star;
+	public OrbitingBody orbitingBody;
 	
-	public override void Init() {}
+	public override void Init()
+	{
+		
+		orbitingBody = sceneManager.user.selectedObject.GetComponent<OrbitingBody>();
+	}
 	
 	public void NextTexture () {
 		Debug.Log ("next texture");

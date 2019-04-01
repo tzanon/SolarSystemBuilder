@@ -30,6 +30,7 @@ public class MenuManager : MonoBehaviour {
 			{ MenuType.View, viewModeMenu },
 			{ MenuType.PrimeStar, primeStarMenu },
 			{ MenuType.RegularStar, regularStarMenu },
+			{ MenuType.Planet, planetMenu },
 			{ MenuType.Moon, moonMenu },
 			{ MenuType.AddSatellite, addSatelliteMenu }
 		};

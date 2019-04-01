@@ -33,22 +33,10 @@ public class User : MonoBehaviour {
 	public Canvas menu;
 
 	private void Start () {
-
 		actionSetEnable.Activate ();
-
 		this.SelectWithRightHand();
-
-		/*
-		toggleLaser = SteamVR_Actions.TZ643P.ToggleLaser;
-		select = SteamVR_Actions.TZ643P.Select;
-		menuInteract = SteamVR_Actions.TZ643P.InteractUI;
-		toggleMenu = SteamVR_Actions.TZ643P.ToggleMenu;
-		teleport = SteamVR_Actions.TZ643P.Teleport;
-		*/
-
 		toggle2 = SteamVR_Actions._default.GrabPinch;
 		select2 = SteamVR_Actions._default.GrabGrip;
-
 	}
 
 	/* VR input handling */
@@ -62,6 +50,7 @@ public class User : MonoBehaviour {
 		/* toggle selection laser on/off */
 		if (toggleLaser.GetStateDown (selectHand)) {
 			Debug.Log ("toggling laser");
+			interactingHand.ActivateSelectLaser();
 		}
 		/* select the hovered object */
 		if (select.GetStateDown (selectHand)) {
@@ -71,6 +60,7 @@ public class User : MonoBehaviour {
 		/* teleport to the hovered object */
 		if (teleport.GetStateDown (selectHand)) {
 			Debug.Log ("teleporting");
+
 		}
 		/* push a UI button, drag a slider, etc. */
 		if (menuInteract.GetStateDown (selectHand)) {
@@ -134,6 +124,11 @@ public class User : MonoBehaviour {
 			{
 				menuManager.ActivateMenu(MenuManager.MenuType.Moon);
 			}
+		}
+		else
+		{
+			menuManager.ActivateMenu(MenuManager.MenuType.Edit);
+			sceneManager.SetEditMode ();
 		}
 	}
 
