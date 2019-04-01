@@ -5,7 +5,8 @@ public class CelestialBody : MonoBehaviour
 {
 	private MeshRenderer mr;
 	public List<Material> availableMaterials;
-	
+	public Material highlightMaterial;
+
 	private static float _timeMultiplier = 1.0f;
 	
 	public const float MinimumSeparatingDistance = 15.0f;
@@ -184,6 +185,22 @@ public class CelestialBody : MonoBehaviour
 	{
 		_satellites.Remove(body);
 		this.CalculateFurthestSatellite();
+	}
+
+	/* for selecting */
+	public void Highlight()
+	{
+		Material[] mats = new Material[2];
+		mats[0] = mr.materials[0];
+		mats[1] = highlightMaterial;
+		mr.materials = mats;
+	}
+
+	public void RemoveHighlight()
+	{
+		Material[] mats = new Material[1];
+		mats[0] = mr.materials[0];
+		mr.materials = mats;
 	}
 
 	#region debug functions

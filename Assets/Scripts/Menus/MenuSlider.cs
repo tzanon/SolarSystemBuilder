@@ -86,7 +86,7 @@ public class MenuSlider : MenuControl {
 		
 		if (debugMode)
 		{
-			//Debug.Log("Slider value: " + this.Value);
+			Debug.Log("Slider value: " + this.Value);
 		}
 	}
 

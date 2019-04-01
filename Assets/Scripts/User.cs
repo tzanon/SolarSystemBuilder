@@ -67,6 +67,7 @@ public class User : MonoBehaviour {
 		/* select the hovered object */
 		if (select.GetStateDown (selectHand)) {
 			Debug.Log ("selecting");
+			this.SelectObject();
 		}
 		/* teleport to the hovered object */
 		if (teleport.GetStateDown (selectHand)) {
@@ -104,6 +105,26 @@ public class User : MonoBehaviour {
 	public void SelectWithRightHand () {
 		menuHand = SteamVR_Input_Sources.LeftHand;
 		selectHand = SteamVR_Input_Sources.RightHand;
+	}
+
+	/* turn laser on/off */
+	public void ToggleSelectLaser()
+	{
+		interactingHand.ActivateSelectLaser();
+	}
+
+	/* select a star/planet/moon */
+	private void SelectObject()
+	{
+		selectedObject = interactingHand.Select();
+
+		if (selectedObject)
+		{
+			if (selectedObject.CompareTag("InitialStar"))
+			{
+				
+			}
+		}
 	}
 
 	public void SelectInitStar (CelestialBody initStar) {

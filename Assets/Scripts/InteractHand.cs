@@ -6,27 +6,135 @@ public class InteractHand : MonoBehaviour {
 	private Rigidbody rb;
 	private SphereCollider selectRegion;
 
-	private MenuControl hoveredControl;
+	public float laserRange = Mathf.Infinity;
+
+	private CelestialBody _selectedObject;
+	private CelestialBody _hoveredObject;
+	private MenuControl _hoveredControl;
 
 	public Vector3 WorldPosition
 	{
 		get { return this.transform.position; }
 	}
 
+	public GameObject SelectedObject
+	{
+		get
+		{
+			if (_selectedObject)
+				return _selectedObject.gameObject;
+			else
+				return null;
+		}
+	}
+
 	private void Start () {
 		this.tag = "InteractHand";
-		
-		selectRegion = GetComponent<SphereCollider>();
-		rb = GetComponent<Rigidbody>();
 
+		lr = GetComponent<LineRenderer>();
+		lr.enabled = false;
+
+		rb = GetComponent<Rigidbody>();
 		rb.isKinematic = true;
+
+		selectRegion = GetComponent<SphereCollider>();
 	}
 	
+	private void Update()
+	{
+		UpdateSelectLaser();
+	}
+
+	#region selecting objects
+
+	public void ActivateSelectLaser()
+	{
+		//lr.enabled = true;
+		lr.enabled = !lr.enabled;
+	}
+
+	// for updating the laser's start and end positions
+	private void UpdateSelectLaser()
+	{
+		// don't bother updating if laser isn't on
+		if (lr.enabled)
+		{
+			// render laser
+			Ray ray = new Ray(this.transform.position, this.transform.forward);
+			Vector3 startPos = this.transform.position;
+			Vector3 endPos = ray.GetPoint(laserRange);
+
+			// highlight object being aimed at
+			RaycastHit hit;
+
+			if (Physics.Raycast(ray, out hit))
+			{
+				endPos = hit.point;
+
+				CelestialBody newHoveredBody = hit.collider.GetComponent<CelestialBody>();
+				if (newHoveredBody)
+				{
+					_hoveredObject = newHoveredBody;
+					_hoveredObject.Highlight();
+				}
+				else if (_hoveredObject && _hoveredObject != _selectedObject)
+				{
+					_hoveredObject.RemoveHighlight();
+					_hoveredObject = null;
+				}
+			}
+			else if (_hoveredObject && _hoveredObject != _selectedObject)
+			{
+				_hoveredObject.RemoveHighlight();
+				_hoveredObject = null;
+			}
+
+			lr.SetPositions(new Vector3[] {startPos, endPos});
+
+		}
+	}
+
+	public GameObject Select()
+	{
+		// if an object is already selected, remove highlight
+		if (_selectedObject)
+		{
+			Debug.Log("deselecting object " + _selectedObject.ToString());
+			Deselect();
+		}
+		
+		Debug.Log("attempting to select object " + _hoveredObject);
+
+		// select the object that the laser is pointing at
+		if (_hoveredObject && lr.enabled)
+		{
+			_selectedObject = _hoveredObject;
+			_hoveredObject = null;
+			_selectedObject.Highlight();
+			Debug.Log("_selectedObject object " + _selectedObject.ToString());
+		}
+
+		lr.enabled = false;
+
+		return SelectedObject;
+	}
+
+	public void Deselect()
+	{
+		_selectedObject.RemoveHighlight();
+		_selectedObject = null;
+	}
+
+
+	#endregion
+
+	#region menu interaction
+
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.CompareTag("Control"))
 		{
-			hoveredControl = other.GetComponent<MenuControl>();
+			_hoveredControl = other.GetComponent<MenuControl>();
 		}
 	}
 
@@ -34,19 +142,19 @@ public class InteractHand : MonoBehaviour {
 	{
 		if (other.CompareTag("Control"))
 		{
-			hoveredControl = null;
+			_hoveredControl = null;
 			this.StopUsingControl();
 		}
 	}
 
 	public void UseControl()
 	{
-		if (hoveredControl)
+		if (_hoveredControl)
 		{
-			hoveredControl.Use();
+			_hoveredControl.Use();
 
 			MenuSlider slider;
-			if (slider = hoveredControl.GetComponent<MenuSlider>())
+			if (slider = _hoveredControl.GetComponent<MenuSlider>())
 			{
 				slider.interactingHand = this;
 			}
@@ -57,11 +165,13 @@ public class InteractHand : MonoBehaviour {
 	public void StopUsingControl()
 	{
 		MenuSlider slider;
-		if (hoveredControl && (slider = hoveredControl.GetComponent<MenuSlider>()))
+		if (_hoveredControl && (slider = _hoveredControl.GetComponent<MenuSlider>()))
 		{
 			slider.StopUsing();
 		}
 	}
+
+	#endregion
 
 	public void SetAsSelectingHand()
 	{

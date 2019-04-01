@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public abstract class MenuControl : MonoBehaviour {
 
-	public static bool debugMode = false;
+	public static bool debugMode = true;
 
 	public UnityEvent OnPress;
 
@@ -32,7 +32,8 @@ public abstract class MenuControl : MonoBehaviour {
 	{
 		if (other.CompareTag("InteractHand"))
 		{
-			Debug.Log("hover");
+			if (debugMode)
+				Debug.Log("hover");
 			Hover();
 		}
 	}
@@ -41,7 +42,8 @@ public abstract class MenuControl : MonoBehaviour {
 	{
 		if (other.CompareTag("InteractHand"))
 		{
-			Debug.Log("default");
+			if (debugMode)
+				Debug.Log("default");
 			Default();
 		}
 	}
