@@ -20,10 +20,15 @@ public abstract class MenuControl : MonoBehaviour {
 	
 	private Collider _collider;
 	
+	private void Awake()
+	{
+		_buttonImage = GetComponent<Image>();
+	}
+
 	private void Start () {
 		this.tag = "Control";
 
-		_buttonImage = GetComponent<Image>();
+		
 		_collider = GetComponent<BoxCollider>();
 		_collider.isTrigger = true;
 	}

@@ -13,9 +13,9 @@ public class MenuManager : MonoBehaviour {
 	public ViewModeMenu viewModeMenu;
 	public PrimeStarMenu primeStarMenu;
 	public AddSatelliteMenu addSatelliteMenu;
-
-	public BaseMenu regularStarMenu;
-	public BaseMenu planetMenu;
+	public OrbitingBodyMenu regularStarMenu;
+	public OrbitingBodyMenu planetMenu;
+	public OrbitingBodyMenu moonMenu;
 
 	private Dictionary<MenuType, BaseMenu> menus;
 
@@ -29,6 +29,8 @@ public class MenuManager : MonoBehaviour {
 			{ MenuType.Edit, editModeMenu },
 			{ MenuType.View, viewModeMenu },
 			{ MenuType.PrimeStar, primeStarMenu },
+			{ MenuType.RegularStar, regularStarMenu },
+			{ MenuType.Moon, moonMenu },
 			{ MenuType.AddSatellite, addSatelliteMenu }
 		};
 	}

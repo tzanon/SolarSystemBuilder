@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
-public class RegularStarMenu : BaseMenu {
-	
+public class OrbitingBodyMenu : BaseMenu {
+
 	public OrbitingBody star;
 	
 	public override void Init() {}
@@ -56,8 +55,8 @@ public class RegularStarMenu : BaseMenu {
 		
 	}
 	
-	public void ListSatellitesToAdd () {
+	public void ListSatellitesToAdd ()
+	{
 		menuManager.ActivateMenu(MenuManager.MenuType.AddSatellite);
 	}
-	
 }

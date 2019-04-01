@@ -2,9 +2,18 @@
 
 public class InteractHand : MonoBehaviour {
 
+	/* components */
 	private LineRenderer lr;
 	private Rigidbody rb;
 	private SphereCollider selectRegion;
+
+	/* need different trigger regions for touch and vive controllers */
+	public bool usingVive;
+	private readonly Vector3 touchTriggerPos = new Vector3(0.0f, -0.03f, -0.05f);
+	private const float touchTriggerRadius = 0.3f;
+	private readonly Vector3 viveTriggerPos = new Vector3(0.0f, -0.05f, 0.03f);
+	private const float viveTriggerRadius = 0.3f;
+
 
 	public float laserRange = Mathf.Infinity;
 
@@ -16,7 +25,7 @@ public class InteractHand : MonoBehaviour {
 	{
 		get { return this.transform.position; }
 	}
-
+	
 	public GameObject SelectedObject
 	{
 		get
@@ -38,6 +47,17 @@ public class InteractHand : MonoBehaviour {
 		rb.isKinematic = true;
 
 		selectRegion = GetComponent<SphereCollider>();
+
+		if (usingVive)
+		{
+			selectRegion.center = viveTriggerPos;
+			selectRegion.radius = viveTriggerRadius;
+		}
+		else
+		{
+			selectRegion.center = touchTriggerPos;
+			selectRegion.radius = touchTriggerRadius;
+		}
 	}
 	
 	private void Update()
