@@ -65,12 +65,17 @@ public class User : MonoBehaviour {
 		/* push a UI button, drag a slider, etc. */
 		if (menuInteract.GetStateDown (selectHand)) {
 			Debug.Log ("interacting");
-
 			interactingHand.UseControl();
+			//interactingHand.ControlCast();
 		}
 		if (menuInteract.GetStateUp (selectHand)) {
 			// stop using control (slider)
 			interactingHand.StopUsingControl();
+		}
+		if (menuInteract.GetState(selectHand))
+		{
+			// shoot raycast to manipulate slider
+			interactingHand.ControlCast();
 		}
 
 		// VR control debugging

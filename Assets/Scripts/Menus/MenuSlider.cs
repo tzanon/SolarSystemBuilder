@@ -1,51 +1,56 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuSlider : MenuControl {
 
 	public float MinValue = 0.0f;
 	public float MaxValue = 1.0f;
 
-	public float minPos;
-	public float maxPos;
+	private float minPos;
+	private float maxPos;
 
 	public InteractHand interactingHand;
+	public GameObject knob;
 
 	public float Value
 	{
 		get
 		{
-			float trackPosition = this.transform.position.x + Mathf.Abs(minPos);
-			float range = Mathf.Abs(minPos) + Mathf.Abs(maxPos);
-			float value = trackPosition / range;
-			
+			float trackPosition = knob.transform.localPosition.x + Mathf.Abs(minPos);
+			float value = trackPosition / _collider.bounds.size.x;
 			return value;
 		}
 	}
 
-	private void Update()
+	protected override void Awake()
 	{
-		if (interactingHand)
-		{
-			// TODO: 
-			
-			Vector3 newPos;
+		_buttonImage = knob.GetComponent<Image>();
+	}
 
-			Vector3 handPos = interactingHand.WorldPosition;
-			Vector3 localHandPos = this.transform.InverseTransformPoint(handPos);
-			Vector3 scaledHandPos = this.transform.TransformDirection(localHandPos);
-			//Vector3 scaledHandPos = this.transform.TransformVector(localHandPos);
+	protected override void Start()
+	{
+		base.Start();
 
-			Vector3 knobPos = this.transform.localPosition;
-			
-			//newPos = new Vector3(localHandPos.x, knobPos.y, knobPos.z);
-			newPos = new Vector3(scaledHandPos.x, knobPos.y, knobPos.z);
+		this.tag = "Slider";
 
-			//Vector3 handPos = interactingHand.WorldPosition;
-			//Vector3 knobPos = this.transform.position;
-			//newPos = new Vector3(handPos.x, knobPos.y, knobPos.z);
+		minPos = -_collider.bounds.size.x / 2;
+		maxPos = _collider.bounds.size.x / 2;
+	}
 
-			this.transform.localPosition = newPos;
-		}
+	/* set the knob in accordance with the given position */
+	public void UpdateKnobPosition(Vector3 worldNewPosition)
+	{
+		Vector3 localNewPosition = this.transform.InverseTransformPoint(worldNewPosition);
+		Vector3 knobPos = knob.transform.localPosition;
+
+		//Vector3 clampedPosition = new Vector3(Mathf.Clamp(localNewPosition.x, minPos, maxPos), knobPos.y, knobPos.z);
+		Vector3 newKnobPos = new Vector3(localNewPosition.x, knobPos.y, knobPos.z);
+
+		if (debugMode)
+			Debug.Log("setting knob to position " + newKnobPos.ToString());
+		
+		knob.transform.localPosition = newKnobPos;
 	}
 
 	protected override void OnTriggerEnter(Collider other)
@@ -71,8 +76,6 @@ public class MenuSlider : MenuControl {
 
 	public void StopUsing()
 	{
-		// TODO: stop updating value
-
 		interactingHand = null;
 
 		if (_isHovered)
@@ -89,6 +92,7 @@ public class MenuSlider : MenuControl {
 			Debug.Log("Slider value: " + this.Value);
 		}
 	}
+
 
 	private void VisualizeUse()
 	{

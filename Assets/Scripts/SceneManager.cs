@@ -143,6 +143,7 @@ public class SceneManager : MonoBehaviour {
 
 		OrbitingBody satellite = Instantiate (templates[type]);
 		satellite.InitSatellite (primary, path, orbitRadius, orbitRadius);
+		bodies.Add(satellite);
 
 		primary.AddOrbitingBody (satellite);
 
@@ -175,7 +176,6 @@ public class SceneManager : MonoBehaviour {
 			furthestOrbitDisplay.text = "Furthest Orbit: " + furthest.MaxOrbitRadius;
 		else
 			furthestOrbitDisplay.text = "Furthest Orbit: None";
-
 	}
 
 }

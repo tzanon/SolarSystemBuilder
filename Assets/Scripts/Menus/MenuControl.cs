@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
@@ -18,16 +16,15 @@ public abstract class MenuControl : MonoBehaviour {
 	
 	protected bool _isHovered = false;
 	
-	private Collider _collider;
+	protected Collider _collider;
 	
-	private void Awake()
+	protected virtual void Awake()
 	{
 		_buttonImage = GetComponent<Image>();
 	}
 
-	private void Start () {
+	protected virtual void Start () {
 		this.tag = "Control";
-
 		
 		_collider = GetComponent<BoxCollider>();
 		_collider.isTrigger = true;
@@ -53,13 +50,13 @@ public abstract class MenuControl : MonoBehaviour {
 		}
 	}
 
-	public void Default()
+	protected void Default()
 	{
 		_buttonImage.sprite = defaultSprite;
 		_isHovered = false;
 	}
 	
-	public void Hover()
+	protected void Hover()
 	{
 		_buttonImage.sprite = hoverSprite;
 		_isHovered = true;

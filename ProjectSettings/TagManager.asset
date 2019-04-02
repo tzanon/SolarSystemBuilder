@@ -10,6 +10,9 @@ TagManager:
   - Moon
   - InteractHand
   - Control
+  - FxTemporaire
+  - projectile
+  - Slider
   layers:
   - Default
   - TransparentFX

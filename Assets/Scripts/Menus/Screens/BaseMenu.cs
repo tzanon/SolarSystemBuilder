@@ -20,12 +20,14 @@ public abstract class BaseMenu : MonoBehaviour {
 
 	public void NextPage()
 	{
-		menuManager.ActivateMenu(next);
+		if (next)
+			menuManager.ActivateMenu(next);
 	}
 	
 	public void PreviousPage()
 	{
-		menuManager.ActivateMenu(previous);
+		if (previous)
+			menuManager.ActivateMenu(previous);
 	}
 	
 }
