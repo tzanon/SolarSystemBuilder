@@ -5,7 +5,7 @@ public class User : MonoBehaviour {
 
 	public bool debugMode = false;
 
-	/*  */
+	/* scene and UI managers */
 	public SceneManager sceneManager;
 	public MenuManager menuManager;
 

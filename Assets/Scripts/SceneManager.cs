@@ -25,8 +25,9 @@ public class SceneManager : MonoBehaviour {
 	private Dictionary<CelestialType, OrbitingBody> templates;
 
 	public CelestialBody initialStar;
-
 	public List<OrbitingBody> bodies = new List<OrbitingBody> ();
+
+	private float lastTimeMultiplier;
 
 	public bool SceneIsEditable {
 		get { return _sceneIsEditable; }
@@ -35,6 +36,7 @@ public class SceneManager : MonoBehaviour {
 	/*  */
 	private void Awake () {
 		CelestialBody.TimeMultiplier = 0.0f;
+		lastTimeMultiplier = 0.0f;
 	}
 
 	/*  */
@@ -92,6 +94,7 @@ public class SceneManager : MonoBehaviour {
 
 	public void SetEditMode () {
 		_sceneIsEditable = true;
+		lastTimeMultiplier = CelestialBody.TimeMultiplier; 
 		CelestialBody.TimeMultiplier = 0.0f;
 	}
 
@@ -99,7 +102,12 @@ public class SceneManager : MonoBehaviour {
 		_sceneIsEditable = false;
 		// TODO: change this, make multiplier current slider value
 		// or set slider at full position
-		CelestialBody.TimeMultiplier = 1.0f;
+		CelestialBody.TimeMultiplier = lastTimeMultiplier;
+	}
+
+	public void SetTimeMultiplierByPercent(float percent)
+	{
+		CelestialBody.TimeMultiplier = percent;
 	}
 
 	/* adds a satellite in orbit around an existing body */

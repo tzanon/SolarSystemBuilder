@@ -7,12 +7,15 @@ public class CelestialBody : MonoBehaviour
 	public List<Material> availableMaterials;
 	public Material highlightMaterial;
 
+	public const float minTime = 0.0f;
+	public const float maxTime = 1.0f;
 	private static float _timeMultiplier = 1.0f;
 	
 	public const float MinimumSeparatingDistance = 15.0f;
 
-	[SerializeField]
-	private float _maxSize = 100.0f;
+	/* these should be different for every object */
+	private float _maxSize = 100.0f; // this should be less than the smaller radius
+	public float _minSize = 1.0f;
 
 	[SerializeField]
 	private float _rotationVelocity = 30.0f;
@@ -29,7 +32,7 @@ public class CelestialBody : MonoBehaviour
 	public static float TimeMultiplier
 	{
 		get { return _timeMultiplier; }
-		set { _timeMultiplier = Mathf.Clamp(value, 0.0f, 1.0f); }
+		set { _timeMultiplier = Mathf.Clamp(value, minTime, maxTime); }
 	}
 	
 	public int NumSatellites
@@ -94,7 +97,14 @@ public class CelestialBody : MonoBehaviour
 		transform.Rotate(0.0f, TimeMultiplier * RotationVelocity * Time.deltaTime, 0.0f);
 		
 	}
-	
+
+	public float SetPropertyByPercent(float percent, float min, float max)
+	{
+		float propertyRange = max - min + 1;
+		float value = min + percent * propertyRange;
+		return value;
+	}
+
 	public void SetTextureByIndex(int idx)
 	{
 		if (availableMaterials.Count <= 0)

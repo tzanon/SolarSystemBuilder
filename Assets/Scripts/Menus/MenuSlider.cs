@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class MenuSlider : MenuControl {
 
@@ -12,6 +13,8 @@ public class MenuSlider : MenuControl {
 
 	public InteractHand interactingHand;
 	public GameObject knob;
+
+	public GameObject objectToAffect;
 
 	public float Value
 	{
@@ -43,14 +46,16 @@ public class MenuSlider : MenuControl {
 	{
 		Vector3 localNewPosition = this.transform.InverseTransformPoint(worldNewPosition);
 		Vector3 knobPos = knob.transform.localPosition;
-
-		//Vector3 clampedPosition = new Vector3(Mathf.Clamp(localNewPosition.x, minPos, maxPos), knobPos.y, knobPos.z);
 		Vector3 newKnobPos = new Vector3(localNewPosition.x, knobPos.y, knobPos.z);
 
 		if (debugMode)
 			Debug.Log("setting knob to position " + newKnobPos.ToString());
 		
 		knob.transform.localPosition = newKnobPos;
+
+		// TODO: update linked value
+		OnPress.Invoke();
+		
 	}
 
 	protected override void OnTriggerEnter(Collider other)
@@ -70,14 +75,11 @@ public class MenuSlider : MenuControl {
 	
 	public override void Use()
 	{
-		// TODO: call event method with current slider value
-		this.VisualizeUse();
+		_buttonImage.sprite = pressedSprite;
 	}
 
 	public void StopUsing()
-	{
-		interactingHand = null;
-
+	{		
 		if (_isHovered)
 		{
 			this.Hover();
@@ -91,12 +93,6 @@ public class MenuSlider : MenuControl {
 		{
 			Debug.Log("Slider value: " + this.Value);
 		}
-	}
-
-
-	private void VisualizeUse()
-	{
-		_buttonImage.sprite = pressedSprite;
 	}
 
 }

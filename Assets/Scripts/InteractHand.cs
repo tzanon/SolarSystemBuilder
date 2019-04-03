@@ -203,13 +203,6 @@ public class InteractHand : MonoBehaviour {
 		if (_hoveredControl)
 		{
 			_hoveredControl.Use();
-
-			MenuSlider slider;
-			if (slider = _hoveredControl.GetComponent<MenuSlider>())
-			{
-				slider.interactingHand = this;
-			}
-
 		}
 	}
 
