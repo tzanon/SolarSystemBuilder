@@ -15,6 +15,7 @@ public class MenuSlider : MenuControl {
 	public GameObject knob;
 
 	public GameObject objectToAffect;
+	//public SceneManager.PropertyType propertyToAffect;
 
 	public float Value
 	{
@@ -22,7 +23,7 @@ public class MenuSlider : MenuControl {
 		{
 			float trackPosition = knob.transform.localPosition.x + Mathf.Abs(minPos);
 			float value = trackPosition / _collider.bounds.size.x;
-			return value;
+			return Mathf.Clamp(value, 0.0f, 1.0f);
 		}
 	}
 
@@ -41,6 +42,16 @@ public class MenuSlider : MenuControl {
 		maxPos = _collider.bounds.size.x / 2;
 	}
 
+	protected override void OnTriggerExit(Collider other)
+	{
+		base.OnTriggerExit(other);
+
+		if (other.CompareTag("InteractHand"))
+		{
+			this.StopUsing();
+		}
+	}
+
 	/* set the knob in accordance with the given position */
 	public void UpdateKnobPosition(Vector3 worldNewPosition)
 	{
@@ -53,24 +64,7 @@ public class MenuSlider : MenuControl {
 		
 		knob.transform.localPosition = newKnobPos;
 
-		// TODO: update linked value
-		OnPress.Invoke();
-		
-	}
-
-	protected override void OnTriggerEnter(Collider other)
-	{
-		base.OnTriggerEnter(other);
-	}
-
-	protected override void OnTriggerExit(Collider other)
-	{
-		base.OnTriggerExit(other);
-
-		if (interactingHand && other.gameObject == interactingHand.gameObject)
-		{
-			interactingHand = null;
-		}
+		// TODO: call some "non-final" representation (e.g. visualization) of the final value
 	}
 	
 	public override void Use()
@@ -93,6 +87,8 @@ public class MenuSlider : MenuControl {
 		{
 			Debug.Log("Slider value: " + this.Value);
 		}
+
+		OnPress.Invoke();
 	}
 
 }

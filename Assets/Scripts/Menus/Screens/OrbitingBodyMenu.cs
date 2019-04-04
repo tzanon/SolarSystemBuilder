@@ -5,9 +5,18 @@ public class OrbitingBodyMenu : BaseMenu {
 
 	public OrbitingBody orbitingBody;
 	
+	public MenuSlider tiltXSlider;
+	public MenuSlider tiltZSlider;
+	public MenuSlider sizeSlider;
+	public MenuSlider rotationSlider;
+	public MenuSlider luminositySlider;
+	public MenuSlider orbitSpeedSlider;
+	public MenuSlider radius1Slider;
+	public MenuSlider radius2Slider;
+
 	public override void Init()
 	{
-		
+		base.Init();
 		orbitingBody = sceneManager.user.selectedObject.GetComponent<OrbitingBody>();
 	}
 	
@@ -19,42 +28,42 @@ public class OrbitingBodyMenu : BaseMenu {
 		Debug.Log ("previous texture");
 	}
 	
-	public void ChangeTiltX(float sliderValue)
+	public void ChangeTiltX()
+	{
+		orbitingBody.SetTiltXByPercent(tiltXSlider.Value);
+	}
+	
+	public void ChangeTiltZ()
+	{
+		orbitingBody.SetTiltZByPercent(tiltZSlider.Value);
+	}
+	
+	public void ChangeSize()
+	{
+		orbitingBody.SetSizeByPercent(sizeSlider.Value);
+	}
+	
+	public void ChangeRotationVelocity()
+	{
+		orbitingBody.SetRotationVelocityByPercent(rotationSlider.Value);
+	}
+	
+	public void ChangeLuminosity()
+	{
+		orbitingBody.SetLuminosityPercent(luminositySlider.Value);
+	}
+	
+	public void ChangeOrbitRad1()
 	{
 		
 	}
 	
-	public void ChangeTiltZ(float sliderValue)
+	public void ChangeOrbitRad2()
 	{
 		
 	}
 	
-	public void ChangeSize(float sliderValue)
-	{
-		
-	}
-	
-	public void ChangeRotationVelocity(float sliderValue)
-	{
-		
-	}
-	
-	public void ChangeLuminosity(float sliderValue)
-	{
-		
-	}
-	
-	public void ChangeOrbitRad1(float sliderValue)
-	{
-		
-	}
-	
-	public void ChangeOrbitRad2(float sliderValue)
-	{
-		
-	}
-	
-	public void ChangeOrbitSpeed(float sliderValue)
+	public void ChangeOrbitSpeed()
 	{
 		
 	}
@@ -63,4 +72,10 @@ public class OrbitingBodyMenu : BaseMenu {
 	{
 		menuManager.ActivateMenu(MenuManager.MenuType.AddSatellite);
 	}
+
+	public override void SetInitialSliderValues()
+	{
+
+	}
+	
 }

@@ -2,7 +2,7 @@
 
 public class EditModeMenu : BaseMenu {
 
-    public override void Init() {}
+    
 
 	public void SaveSolarSystem()
 	{
@@ -21,6 +21,11 @@ public class EditModeMenu : BaseMenu {
 		Debug.Log("going to view mode");
 		menuManager.ActivateMenu(MenuManager.MenuType.View);
 		sceneManager.SetViewMode();
+	}
+
+	public override void SetInitialSliderValues()
+	{
+
 	}
 
 }

@@ -17,7 +17,10 @@ public class OrbitPath : MonoBehaviour {
 	private const int DefaultPointsToCalculate = 6;
 	public int pointsToCalculate;
 
-	public const float PointProximityThreshold = 0.5f;
+	//public const float PointProximityThreshold = 0.5f;
+
+	public static float minRadius = 100.0f;
+	public static float maxRadius = 2000.0f;
 
 	public float initRad1, initRad2;
 	private float _rad1, _rad2;

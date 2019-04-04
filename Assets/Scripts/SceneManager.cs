@@ -16,6 +16,7 @@ public class SceneManager : MonoBehaviour {
 	public Text furthestOrbitDisplay;
 
 	public enum CelestialType { Star, Planet, Moon, SatCam };
+	//public enum PropertyType { Time, Size, TiltX, TiltZ, Rotation, OrbitSpeed, Radius1, Radius2 };
 
 	public OrbitingBody starTemplate;
 	public OrbitingBody planetTemplate;
@@ -28,6 +29,8 @@ public class SceneManager : MonoBehaviour {
 	public List<OrbitingBody> bodies = new List<OrbitingBody> ();
 
 	private float lastTimeMultiplier;
+
+	private Vector3 systemViewPosition;
 
 	public bool SceneIsEditable {
 		get { return _sceneIsEditable; }
@@ -105,9 +108,36 @@ public class SceneManager : MonoBehaviour {
 		CelestialBody.TimeMultiplier = lastTimeMultiplier;
 	}
 
+	/* update the time multiplier */
 	public void SetTimeMultiplierByPercent(float percent)
 	{
+		if (debugMode)
+			Debug.Log("new time multiplier: " + percent);
 		CelestialBody.TimeMultiplier = percent;
+	}
+
+	public void CalculateSystemViewpoint()
+	{
+		float furthestDistance;
+
+		if (initialStar.NumSatellites <= 0) {
+			furthestDistance = initialStar.Size / 2;
+		} else {
+			furthestDistance = initialStar.FurthestSatellite.Region.Max;
+		}
+
+		furthestDistance += CelestialBody.MinimumSeparatingDistance;
+
+		systemViewPosition = new Vector3(furthestDistance, 0.0f, 0.0f);
+	}
+
+	public void TeleportToSystemViepoint()
+	{
+		// teleport magic
+
+		user.transform.position = systemViewPosition;
+
+		// fade in
 	}
 
 	/* adds a satellite in orbit around an existing body */
@@ -133,12 +163,12 @@ public class SceneManager : MonoBehaviour {
 		float furthestRegionLimit;
 
 		if (primary.NumSatellites <= 0) {
-			furthestRegionLimit = primary.Size;
+			furthestRegionLimit = primary.Size / 2;
 		} else {
 			furthestRegionLimit = primary.FurthestSatellite.Region.Max;
 		}
 
-		float orbitRadius = furthestRegionLimit + CelestialBody.MinimumSeparatingDistance + templates[type].Size;
+		float orbitRadius = furthestRegionLimit + CelestialBody.MinimumSeparatingDistance + templates[type].Size / 2;
 		OrbitPath path = Instantiate (orbitPathTemplate);
 
 		Debug.Log ("orbit radius is " + orbitRadius);

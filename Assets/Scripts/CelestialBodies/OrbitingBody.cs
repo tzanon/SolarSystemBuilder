@@ -11,7 +11,9 @@ public class OrbitingBody : CelestialBody, ISatellite
 
 	//public float initOrbitSpeed = 10.0f;
 
-	[Range(1.0f, 500.0f)]
+	public const float MaxOrbitSpeed = 100.0f;
+	public const float MinOrbitSpeed = 1.0f;
+	
 	public float _orbitSpeed = 15.0f;
 	
 	private OrbitPath _path;
@@ -29,7 +31,7 @@ public class OrbitingBody : CelestialBody, ISatellite
 	public float OrbitSpeed
 	{
 		get { return _orbitSpeed; }
-		set { _orbitSpeed = Mathf.Clamp(value, 1.0f, 500.0f); }
+		set { _orbitSpeed = value; }
 	}
 
 	public float OrbitRadius1
@@ -69,7 +71,7 @@ public class OrbitingBody : CelestialBody, ISatellite
 	public override float Size
 	{
 		get { return transform.localScale.x / 2; }
-		set
+		protected set
 		{
 			base.Size = value;
 			CalculateOrbitRegion();
@@ -133,6 +135,25 @@ public class OrbitingBody : CelestialBody, ISatellite
 		
 	}
 	
+#region slider setters
+
+	public void SetRadius1ByPercent(float percent)
+	{
+		OrbitRadius1 = CalculatePropertyValue(percent, OrbitPath.minRadius, OrbitPath.maxRadius);
+	}
+
+	public void SetRadius2ByPercent(float percent)
+	{
+		OrbitRadius2 = CalculatePropertyValue(percent, OrbitPath.minRadius, OrbitPath.maxRadius);
+	}
+
+	public void SetOrbitSpeedByPercent(float percent)
+	{
+		OrbitSpeed = CalculatePropertyValue(percent, MinOrbitSpeed, MaxOrbitSpeed);
+	}
+
+#endregion
+
 	/* calculates the region this OB occupies while orbiting */
 	public void CalculateOrbitRegion()
 	{

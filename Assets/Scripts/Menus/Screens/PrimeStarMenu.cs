@@ -2,10 +2,16 @@
 
 public class PrimeStarMenu : BaseMenu {
 
-	public AddSatelliteMenu addSatelliteMenu;
 	public CelestialBody initialStar;
 
+	public MenuSlider tiltXSlider;
+	public MenuSlider tiltZSlider;
+	public MenuSlider sizeSlider;
+	public MenuSlider rotationSlider;
+	public MenuSlider luminositySlider;
+
 	public override void Init () {
+		base.Init();
 		initialStar = sceneManager.initialStar;
 	}
 
@@ -19,33 +25,38 @@ public class PrimeStarMenu : BaseMenu {
 		
 	}
 	
-	public void ChangeTiltX(float sliderValue)
+	public void ChangeTiltX()
 	{
-		
+		initialStar.SetTiltXByPercent(tiltXSlider.Value);
 	}
 	
-	public void ChangeTiltZ(float sliderValue)
+	public void ChangeTiltZ()
 	{
-		
+		initialStar.SetTiltZByPercent(tiltZSlider.Value);
 	}
 	
-	public void ChangeSize(float sliderValue)
+	public void ChangeSize()
 	{
-		
+		initialStar.SetSizeByPercent(sizeSlider.Value);
 	}
 	
-	public void ChangeRotationVelocity(float sliderValue)
+	public void ChangeRotationVelocity()
 	{
-		
+		initialStar.SetRotationVelocityByPercent(rotationSlider.Value);
 	}
 	
-	public void ChangeLuminosity(float sliderValue)
+	public void ChangeLuminosity()
 	{
-		
+		initialStar.SetLuminosityPercent(luminositySlider.Value);
 	}
 	
 	public void ListSatellitesToAdd () {
 		menuManager.ActivateMenu(MenuManager.MenuType.AddSatellite);
+	}
+
+	public override void SetInitialSliderValues()
+	{
+
 	}
 
 }

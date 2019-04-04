@@ -7,19 +7,38 @@ public class CelestialBody : MonoBehaviour
 	public List<Material> availableMaterials;
 	public Material highlightMaterial;
 
+	public const float MinimumSeparatingDistance = 15.0f;
+
 	public const float minTime = 0.0f;
 	public const float maxTime = 1.0f;
 	private static float _timeMultiplier = 1.0f;
 	
-	public const float MinimumSeparatingDistance = 15.0f;
+	private int textureIndex = 0;
+
+	/* bounds for x/z tilt */
+	public const float MinTilt = 0.0f;
+	public const float MaxTilt = 359.0f;
 
 	/* these should be different for every object */
+	// max size is bound by: orbits of satellites and body's own orbit
 	private float _maxSize = 100.0f; // this should be less than the smaller radius
-	public float _minSize = 1.0f;
+
+	public float naturalMaxSize = 100.0f;
+	public float minSize = 1.0f;
+
+	/* bounds for rotation velocity */
+	public const float MinRotVel = -100.0f;
+	public const float MaxRotVel = 100.0f;
 
 	[SerializeField]
 	private float _rotationVelocity = 30.0f;
 	
+	/* bounds for luminosity */
+	public const float MinLuminosity = 0.0f;
+	public const float MaxLuminosity = 100.0f;
+
+	private float _luminosity = 50.0f; 
+
 	// TODO: set some rule for satellites
 	// e.g. max orbit is half that of its primary
 	private float maxOrbitDistance = 100.0f;
@@ -45,29 +64,13 @@ public class CelestialBody : MonoBehaviour
 		get { return _furthestSatellite; }
 	}
 
-	public virtual float Size
-	{
-		get { return transform.localScale.x / 2; }
-		set
-		{
-			float size = Mathf.Clamp(value, 0.1f, _maxSize);
-			transform.localScale = new Vector3(value, value, value);
-		}
-	}
-	
-	public float RotationVelocity
-	{
-		get { return _rotationVelocity; }
-		set { _rotationVelocity = Mathf.Clamp(value, -180.0f, 180.0f); }
-	}
-	
 	public float AxialTiltX
 	{
 		get { return transform.rotation.eulerAngles.x; }
-		set
+		private set
 		{
 			transform.rotation = Quaternion.Euler(
-				Mathf.Clamp(value, 0.0f, 360.0f),
+				value,
 				transform.rotation.eulerAngles.y,
 				transform.rotation.eulerAngles.z);
 		}
@@ -76,13 +79,22 @@ public class CelestialBody : MonoBehaviour
 	public float AxialTiltZ
 	{
 		get { return transform.rotation.eulerAngles.z; }
-		set
+		private set
 		{
 			transform.rotation = Quaternion.Euler(
 				transform.rotation.eulerAngles.x,
 				transform.rotation.eulerAngles.y,
-				Mathf.Clamp(value, 0.0f, 360.0f)
+				value
 				);
+		}
+	}
+
+	public virtual float Size
+	{
+		get { return transform.localScale.x; }
+		protected set
+		{
+			transform.localScale = new Vector3(value, value, value);
 		}
 	}
 	
@@ -94,11 +106,11 @@ public class CelestialBody : MonoBehaviour
 	protected virtual void FixedUpdate()
 	{
 		/* rotate on axis at given speed and direction */
-		transform.Rotate(0.0f, TimeMultiplier * RotationVelocity * Time.deltaTime, 0.0f);
+		transform.Rotate(0.0f, TimeMultiplier * _rotationVelocity * Time.deltaTime, 0.0f);
 		
 	}
 
-	public float SetPropertyByPercent(float percent, float min, float max)
+	public float CalculatePropertyValue(float percent, float min, float max)
 	{
 		float propertyRange = max - min + 1;
 		float value = min + percent * propertyRange;
@@ -112,11 +124,40 @@ public class CelestialBody : MonoBehaviour
 			return;
 		}
 		
-		Material[] mats = new Material[1];
+		Material[] mats = new Material[2];
 		mats[0] = availableMaterials[Mathf.Clamp(idx, 0, availableMaterials.Count - 1)];
+		mats[1] = mr.materials[1];
 		mr.materials = mats;
+
+		
 	}
 	
+	public void SetTiltXByPercent(float percent)
+	{
+		AxialTiltX = CalculatePropertyValue(percent, MinTilt, MaxTilt);
+	}
+
+	public void SetTiltZByPercent(float percent)
+	{
+		AxialTiltZ = CalculatePropertyValue(percent, MinTilt, MaxTilt);
+	}
+
+	public void SetSizeByPercent(float percent)
+	{
+		//Size = CalculatePropertyValue(percent, minSize, _maxSize);
+		Size = CalculatePropertyValue(percent, minSize, naturalMaxSize);
+	}
+
+	public void SetRotationVelocityByPercent(float percent)
+	{
+		_rotationVelocity = CalculatePropertyValue(percent, MinRotVel, MaxRotVel);
+	}
+
+	public void SetLuminosityPercent(float percent)
+	{
+		_luminosity = CalculatePropertyValue(percent, MinLuminosity, MaxLuminosity);
+	}
+
 	private void CalculateFurthestSatellite()
 	{
 		if (_satellites.Count < 1)

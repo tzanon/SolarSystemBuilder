@@ -9,6 +9,7 @@ public class AddSatelliteMenu : BaseMenu {
 	public GameObject planetOptions;
 
 	public override void Init () {
+		base.Init();
 		this.ShowOptions ();
 	}
 
@@ -55,6 +56,11 @@ public class AddSatelliteMenu : BaseMenu {
 			return;
 		
 		menuManager.ActivateMenu(previousMenu);
+	}
+
+	public override void SetInitialSliderValues()
+	{
+
 	}
 
 }
