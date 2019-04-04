@@ -56,7 +56,9 @@ public class PrimeStarMenu : BaseMenu {
 
 	public override void SetInitialSliderValues()
 	{
-
+		tiltXSlider.Value
+		tiltZSlider.Value
+		sizeSlider.Value
 	}
 
 }

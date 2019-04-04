@@ -117,6 +117,13 @@ public class CelestialBody : MonoBehaviour
 		return value;
 	}
 
+	public float CalculatePropertyPercentage(float value, float min, float max)
+	{
+		float propertyRange = max - min + 1;
+		float percent = (value - min) / propertyRange;
+		return percent;
+	}
+
 	public void SetTextureByIndex(int idx)
 	{
 		if (availableMaterials.Count <= 0)
@@ -128,8 +135,6 @@ public class CelestialBody : MonoBehaviour
 		mats[0] = availableMaterials[Mathf.Clamp(idx, 0, availableMaterials.Count - 1)];
 		mats[1] = mr.materials[1];
 		mr.materials = mats;
-
-		
 	}
 	
 	public void SetTiltXByPercent(float percent)
@@ -157,7 +162,11 @@ public class CelestialBody : MonoBehaviour
 	{
 		_luminosity = CalculatePropertyValue(percent, MinLuminosity, MaxLuminosity);
 	}
-
+	
+	// TODO: percentage calculate functions
+	
+	
+	
 	private void CalculateFurthestSatellite()
 	{
 		if (_satellites.Count < 1)

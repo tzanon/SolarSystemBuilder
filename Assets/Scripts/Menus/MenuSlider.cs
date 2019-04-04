@@ -21,12 +21,21 @@ public class MenuSlider : MenuControl {
 	{
 		get
 		{
-			float trackPosition = knob.transform.localPosition.x + Mathf.Abs(minPos);
-			float value = trackPosition / _collider.bounds.size.x;
-			return Mathf.Clamp(value, 0.0f, 1.0f);
+			float absolutePosition = knob.transform.localPosition.x + Mathf.Abs(minPos);
+			float percent = absolutePosition / _collider.bounds.size.x;
+			return Mathf.Clamp(percent, 0.0f, 1.0f);
+		}
+		set
+		{
+			float percent = Mathf.Clamp(value, 0.0f, 1.0f);
+			float absolutePosition = percent / _collider.bounds.size.x;
+			float trackPosition = absolutePosition - Mathf.abs(minPos);
+			
+			Vector3 knobPos = knob.transform.localPosition;
+			knob.transform.localPosition = new Vector3(trackPosition, knobPos.y, knobPos.z);
 		}
 	}
-
+	
 	protected override void Awake()
 	{
 		_buttonImage = knob.GetComponent<Image>();
