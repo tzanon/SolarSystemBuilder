@@ -38,8 +38,8 @@ public class SceneManager : MonoBehaviour {
 
 	/*  */
 	private void Awake () {
-		CelestialBody.TimeMultiplier = 0.0f;
-		lastTimeMultiplier = 0.0f;
+		CelestialBody.TimeMultiplier = 1.0f;
+		lastTimeMultiplier = 1.0f;
 	}
 
 	/*  */
@@ -155,7 +155,7 @@ public class SceneManager : MonoBehaviour {
 
 		CelestialBody primary;
 
-		if (!user) {
+		if (!user || !user.isActiveAndEnabled) {
 			primary = initialStar;
 		} else if ((primary = user.selectedObject.GetComponent<CelestialBody> ()) == null) {
 			return;
