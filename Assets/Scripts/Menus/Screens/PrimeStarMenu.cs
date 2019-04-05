@@ -1,15 +1,21 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PrimeStarMenu : BaseMenu {
-
+	
 	public CelestialBody initialStar;
-
+	
 	public MenuSlider tiltXSlider;
 	public MenuSlider tiltZSlider;
 	public MenuSlider sizeSlider;
 	public MenuSlider rotationSlider;
 	public MenuSlider luminositySlider;
-
+	
+	protected override void MakeSliderList()
+	{
+		_sliders = new List<MenuSlider> { tiltXSlider, tiltZSlider, sizeSlider, rotationSlider, luminositySlider };
+	}
+	
 	public override void Init () {
 		base.Init();
 		initialStar = sceneManager.initialStar;
@@ -53,12 +59,13 @@ public class PrimeStarMenu : BaseMenu {
 	public void ListSatellitesToAdd () {
 		menuManager.ActivateMenu(MenuManager.MenuType.AddSatellite);
 	}
-
+	
 	public override void SetInitialSliderValues()
 	{
-		tiltXSlider.Value
-		tiltZSlider.Value
-		sizeSlider.Value
+		foreach (MenuSlider slider in _sliders)
+		{
+			if (slider)
+				continue;
+		}
 	}
-
 }

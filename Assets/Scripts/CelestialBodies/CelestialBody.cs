@@ -164,7 +164,10 @@ public class CelestialBody : MonoBehaviour
 	}
 	
 	// TODO: percentage calculate functions
-	
+	public float GetTiltXPercent()
+	{
+		return CalculatePropertyPercentage(AxialTiltX, MinTilt, MaxTilt);
+	}
 	
 	
 	private void CalculateFurthestSatellite()

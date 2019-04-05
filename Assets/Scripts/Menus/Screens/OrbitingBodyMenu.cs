@@ -1,4 +1,4 @@
-﻿
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class OrbitingBodyMenu : BaseMenu {
@@ -18,6 +18,12 @@ public class OrbitingBodyMenu : BaseMenu {
 	{
 		base.Init();
 		orbitingBody = sceneManager.user.selectedObject.GetComponent<OrbitingBody>();
+	}
+	
+	protected override void MakeSliderList()
+	{
+		_sliders = new List<MenuSlider> { tiltXSlider, tiltZSlider, sizeSlider, rotationSlider,
+			luminositySlider, orbitSpeedSlider, radius1Slider, radius2Slider };
 	}
 	
 	public void NextTexture () {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class AddSatelliteMenu : BaseMenu {
 
@@ -11,6 +12,11 @@ public class AddSatelliteMenu : BaseMenu {
 	public override void Init () {
 		base.Init();
 		this.ShowOptions ();
+	}
+
+	protected override void MakeSliderList()
+	{
+		_sliders = new List<MenuSlider>();
 	}
 
 	private void HideOptions () {
@@ -62,5 +68,7 @@ public class AddSatelliteMenu : BaseMenu {
 	{
 
 	}
+	
+	
 
 }

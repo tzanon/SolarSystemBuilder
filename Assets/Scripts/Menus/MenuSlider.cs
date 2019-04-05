@@ -16,7 +16,8 @@ public class MenuSlider : MenuControl {
 
 	public GameObject objectToAffect;
 	//public SceneManager.PropertyType propertyToAffect;
-
+	
+	/* the value, in percentage, of the slider */
 	public float Value
 	{
 		get
@@ -29,7 +30,7 @@ public class MenuSlider : MenuControl {
 		{
 			float percent = Mathf.Clamp(value, 0.0f, 1.0f);
 			float absolutePosition = percent / _collider.bounds.size.x;
-			float trackPosition = absolutePosition - Mathf.abs(minPos);
+			float trackPosition = absolutePosition - Mathf.Abs(minPos);
 			
 			Vector3 knobPos = knob.transform.localPosition;
 			knob.transform.localPosition = new Vector3(trackPosition, knobPos.y, knobPos.z);

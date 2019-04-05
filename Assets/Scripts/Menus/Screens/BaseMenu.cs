@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public abstract class BaseMenu : MonoBehaviour {
 
@@ -8,15 +9,20 @@ public abstract class BaseMenu : MonoBehaviour {
 	public BaseMenu next;
 	public BaseMenu previous;
 	
+	protected List<MenuSlider> _sliders;
+	
 	private void Start () {
+		this.MakeSliderList();
 		this.Init ();
 	}
+
+	protected abstract void MakeSliderList();
 
 	public virtual void Init ()
 	{
 		SetInitialSliderValues();
 	}
-
+	
 	public virtual void Hide () {
 		this.gameObject.SetActive (false);
 	}
