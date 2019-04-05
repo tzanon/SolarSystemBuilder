@@ -21,13 +21,11 @@ public abstract class MenuControl : MonoBehaviour {
 	protected virtual void Awake()
 	{
 		_buttonImage = GetComponent<Image>();
+		
 	}
 
 	protected virtual void Start () {
-		this.tag = "Control";
-		
-		_collider = GetComponent<BoxCollider>();
-		_collider.isTrigger = true;
+		InitControl();
 	}
 
 	protected virtual void OnTriggerEnter(Collider other)
@@ -48,6 +46,13 @@ public abstract class MenuControl : MonoBehaviour {
 				Debug.Log("default");
 			Default();
 		}
+	}
+
+	public virtual void InitControl()
+	{
+		this.tag = "Control";
+		_collider = GetComponent<BoxCollider>();
+		_collider.isTrigger = true;
 	}
 
 	protected void Default()

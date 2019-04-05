@@ -5,8 +5,6 @@ public class ViewModeMenu : BaseMenu {
 	
 	public MenuSlider timeSlider;
 	
-	//public override void Init() {}
-	
 	protected override void MakeSliderList()
 	{
 		_sliders = new List<MenuSlider> { timeSlider };
@@ -26,6 +24,8 @@ public class ViewModeMenu : BaseMenu {
 	
 	public override void SetInitialSliderValues()
 	{
+		base.SetInitialSliderValues();
+
 		timeSlider.Value = CelestialBody.TimeMultiplier;
 	}
 

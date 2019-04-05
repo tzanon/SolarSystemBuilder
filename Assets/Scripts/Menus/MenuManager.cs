@@ -19,9 +19,8 @@ public class MenuManager : MonoBehaviour {
 
 	private Dictionary<MenuType, BaseMenu> menus;
 
-	void Start () {
+	private void Start () {
 		sm = GetComponent<SceneManager>();
-
 		BaseMenu.sceneManager = this.sm;
 		BaseMenu.menuManager = this;
 
@@ -34,6 +33,17 @@ public class MenuManager : MonoBehaviour {
 			{ MenuType.Moon, moonMenu },
 			{ MenuType.AddSatellite, addSatelliteMenu }
 		};
+	}
+
+	public void InitMenus()
+	{
+		
+
+		foreach (BaseMenu menu in menus.Values)
+		{
+			//menu.gameObject.SetActive(true);
+			menu.gameObject.SetActive(false);
+		}
 	}
 
 	public void ActivateMenu (MenuType type) {

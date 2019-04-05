@@ -45,6 +45,7 @@ public class SceneManager : MonoBehaviour {
 	/*  */
 	private void Start () {
 		menuManager = GetComponent<MenuManager>();
+		//menuManager.InitMenus();
 
 		templates = new Dictionary<CelestialType, OrbitingBody> {
 			{ CelestialType.Star, starTemplate },

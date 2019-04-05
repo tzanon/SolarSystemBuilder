@@ -23,7 +23,10 @@ public class OrbitingBodyMenu : BaseMenu {
 	protected override void MakeSliderList()
 	{
 		_sliders = new List<MenuSlider> { tiltXSlider, tiltZSlider, sizeSlider, rotationSlider,
-			luminositySlider, orbitSpeedSlider, radius1Slider, radius2Slider };
+			orbitSpeedSlider, radius1Slider, radius2Slider };
+		
+		if (luminositySlider)
+			_sliders.Add(luminositySlider);
 	}
 	
 	public void NextTexture () {

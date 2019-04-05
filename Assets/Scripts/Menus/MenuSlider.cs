@@ -15,7 +15,6 @@ public class MenuSlider : MenuControl {
 	public GameObject knob;
 
 	public GameObject objectToAffect;
-	//public SceneManager.PropertyType propertyToAffect;
 	
 	/* the value, in percentage, of the slider */
 	public float Value
@@ -42,16 +41,6 @@ public class MenuSlider : MenuControl {
 		_buttonImage = knob.GetComponent<Image>();
 	}
 
-	protected override void Start()
-	{
-		base.Start();
-
-		this.tag = "Slider";
-
-		minPos = -_collider.bounds.size.x / 2;
-		maxPos = _collider.bounds.size.x / 2;
-	}
-
 	protected override void OnTriggerExit(Collider other)
 	{
 		base.OnTriggerExit(other);
@@ -60,6 +49,15 @@ public class MenuSlider : MenuControl {
 		{
 			this.StopUsing();
 		}
+	}
+
+	public override void InitControl()
+	{
+		base.InitControl();
+
+		this.tag = "Slider";
+		minPos = -_collider.bounds.size.x / 2;
+		maxPos = _collider.bounds.size.x / 2;
 	}
 
 	/* set the knob in accordance with the given position */

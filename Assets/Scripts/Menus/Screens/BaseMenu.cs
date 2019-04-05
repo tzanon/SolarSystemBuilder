@@ -11,15 +11,19 @@ public abstract class BaseMenu : MonoBehaviour {
 	
 	protected List<MenuSlider> _sliders;
 	
-	private void Start () {
-		this.MakeSliderList();
-		this.Init ();
+	private void Start() {
+		MakeSliderList();
+		//Init();
 	}
 
 	protected abstract void MakeSliderList();
 
 	public virtual void Init ()
 	{
+		if (_sliders == null)
+		{
+			MakeSliderList();
+		}
 		SetInitialSliderValues();
 	}
 	
@@ -40,6 +44,12 @@ public abstract class BaseMenu : MonoBehaviour {
 	}
 
 	// TODO: set sliders so they reflect the current settings of the selected object
-	public abstract void SetInitialSliderValues();
+	public virtual void SetInitialSliderValues()
+	{
+		foreach (MenuSlider slider in _sliders)
+		{
+			slider.InitControl();
+		}
+	}
 	
 }
