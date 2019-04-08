@@ -21,9 +21,8 @@ public class CelestialBody : MonoBehaviour
 
 	/* these should be different for every object */
 	// max size is bound by: orbits of satellites and body's own orbit
-	private float _maxSize = 100.0f; // this should be less than the smaller radius
-
 	public float naturalMaxSize = 100.0f;
+	private float _maxSize = 100.0f;
 	public float minSize = 1.0f;
 
 	/* bounds for rotation velocity */
@@ -37,7 +36,7 @@ public class CelestialBody : MonoBehaviour
 	public const float MinLuminosity = 0.0f;
 	public const float MaxLuminosity = 100.0f;
 
-	private float _luminosity = 50.0f; 
+	private float _luminosity = 50.0f;
 
 	// TODO: set some rule for satellites
 	// e.g. max orbit is half that of its primary
@@ -107,7 +106,6 @@ public class CelestialBody : MonoBehaviour
 	{
 		/* rotate on axis at given speed and direction */
 		transform.Rotate(0.0f, TimeMultiplier * _rotationVelocity * Time.deltaTime, 0.0f);
-		
 	}
 
 	public float CalculatePropertyValue(float percent, float min, float max)
@@ -168,7 +166,16 @@ public class CelestialBody : MonoBehaviour
 	{
 		return CalculatePropertyPercentage(AxialTiltX, MinTilt, MaxTilt);
 	}
+
+	public float GetTiltZPercent()
+	{
+		return CalculatePropertyPercentage(AxialTiltZ, MinTilt, MaxTilt);
+	}
 	
+	public float GetSizePercent()
+	{
+		return CalculatePropertyPercentage(Size, minSize, _maxSize);
+	}
 	
 	private void CalculateFurthestSatellite()
 	{

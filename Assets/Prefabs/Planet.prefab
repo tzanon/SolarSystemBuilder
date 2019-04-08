@@ -101,6 +101,7 @@ MonoBehaviour:
   minSize: 15
   _rotationVelocity: 30
   debugMode: 0
+  orbitDebugMode: 1
   orbitMarker: {fileID: 1208074006869236, guid: 45dbcc74cdbf9f44aab54655fa409200,
     type: 2}
   msgRate: 1

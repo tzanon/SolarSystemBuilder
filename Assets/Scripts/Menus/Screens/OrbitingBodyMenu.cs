@@ -71,10 +71,30 @@ public class OrbitingBodyMenu : BaseMenu {
 	{
 		
 	}
+
+	public void IncrementOrbitRad1()
+	{
+
+	}
+
+	public void DecrementOrbitRad1()
+	{
+		
+	}
+
+	public void IncrementOrbitRad2()
+	{
+
+	}
+
+	public void DecrementOrbitRad2()
+	{
+		
+	}
 	
 	public void ChangeOrbitSpeed()
 	{
-		
+		orbitingBody.SetOrbitSpeedByPercent(orbitSpeedSlider.Value);
 	}
 	
 	public void ListSatellitesToAdd ()

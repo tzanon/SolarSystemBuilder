@@ -63,12 +63,6 @@ public class AddSatelliteMenu : BaseMenu {
 		
 		menuManager.ActivateMenu(previousMenu);
 	}
-
-	public override void SetInitialSliderValues()
-	{
-
-	}
-	
 	
 
 }

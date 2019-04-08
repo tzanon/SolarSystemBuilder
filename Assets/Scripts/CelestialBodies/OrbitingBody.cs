@@ -4,12 +4,15 @@
 public class OrbitingBody : CelestialBody, ISatellite
 {
 	public bool debugMode = false;
+	public bool orbitDebugMode = false;
 	public GameObject orbitMarker;
 	private GameObject[] markers;
 	public float msgRate = 1.0f;
 	private float _nextMsg;
 
 	//public float initOrbitSpeed = 10.0f;
+
+	private Vector3 offset;
 
 	public const float MaxOrbitSpeed = 100.0f;
 	public const float MinOrbitSpeed = 1.0f;
@@ -103,7 +106,10 @@ public class OrbitingBody : CelestialBody, ISatellite
 		
 		// TODO: traverse path at rate * time multiplier
 		if (_path)
+		{
+			//this.transform.position = Primary.transform.position + offset;
 			this.TraversePath();
+		}
 	}
 
 	/* should be called immediately after instantiation */
@@ -114,6 +120,8 @@ public class OrbitingBody : CelestialBody, ISatellite
 		_path.Initialize(primary, rad1, rad2);
 		this.transform.position = _path.GetWorldPointByIndex(0);
 		this.transform.rotation = Quaternion.identity;
+
+		offset = transform.position - Primary.transform.position;
 		
 		this.GetNextPathPoint();
 		
@@ -134,7 +142,7 @@ public class OrbitingBody : CelestialBody, ISatellite
 		*/
 		
 	}
-	
+
 #region slider setters
 
 	public void SetRadius1ByPercent(float percent)
@@ -194,21 +202,30 @@ public class OrbitingBody : CelestialBody, ISatellite
 			_pointIndex++;
 		}
 		
-		_nextPathPoint = _path.GetWorldPointByIndex(_pointIndex);
+		//_nextPathPoint = _path.GetWorldPointByIndex(_pointIndex);
+		_nextPathPoint = _path.GetLocalPointByIndex(_pointIndex);
 	}
 	
 	public void TraversePath()
 	{
-		if (transform.position == _nextPathPoint)
+		Vector3 nextWorldPosition = Primary.transform.position + _nextPathPoint;
+
+		if (transform.position == nextWorldPosition)
 		{
 			this.GetNextPathPoint();
+
+			if (orbitDebugMode)
+			{
+				Instantiate(orbitMarker, this.transform.position, Quaternion.identity);
+			}
+
 			if (debugMode)
-				Debug.Log("moving to path point " + _nextPathPoint.ToString());
+				Debug.Log("moving to path point " + nextWorldPosition.ToString());
 		}
 
 		transform.position = Vector3.MoveTowards(
 			transform.position,
-			_nextPathPoint,
+			nextWorldPosition,
 			TimeMultiplier * _orbitSpeed * Time.deltaTime);
 	}
 

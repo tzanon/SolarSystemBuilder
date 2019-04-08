@@ -224,7 +224,8 @@ public class OrbitPath : MonoBehaviour {
 	}
 
 	public Vector3 GetLocalPointByIndex (int idx) {
-		return transform.InverseTransformPoint (_worldPoints[Mathf.Clamp (idx, 0, _cartesianPoints.Length - 1)]);
+		//return transform.InverseTransformPoint (_worldPoints[Mathf.Clamp (idx, 0, _cartesianPoints.Length - 1)]);
+		return _cartesianPoints[Mathf.Clamp(idx, 0, _cartesianPoints.Length - 1)];
 	}
 
 	public void ShowPath () {

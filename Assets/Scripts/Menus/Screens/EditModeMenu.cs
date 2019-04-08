@@ -27,9 +27,4 @@ public class EditModeMenu : BaseMenu {
 		sceneManager.SetViewMode();
 	}
 
-	public override void SetInitialSliderValues()
-	{
-
-	}
-
 }
