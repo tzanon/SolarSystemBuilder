@@ -170,7 +170,7 @@ public class OrbitingBody : CelestialBody, ISatellite
 
 		if (this.NumSatellites <= 0)
 		{
-			_region += this.Size;
+			_region += this.naturalMaxSize;
 		}
 		else
 		{

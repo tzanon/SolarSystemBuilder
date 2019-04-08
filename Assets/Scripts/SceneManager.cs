@@ -9,6 +9,8 @@ public class SceneManager : MonoBehaviour {
 	public bool debugMode = false;
 	private bool _sceneIsEditable;
 
+	public CelestialBody debugSelectedObject;
+
 	public User user;
 
 	public Text orbitListDisplay;
@@ -156,7 +158,11 @@ public class SceneManager : MonoBehaviour {
 		CelestialBody primary;
 
 		if (!user || !user.isActiveAndEnabled) {
-			primary = initialStar;
+			if (debugMode && debugSelectedObject) {
+				primary = debugSelectedObject;
+			} else {
+				primary = initialStar;
+			}
 		} else if ((primary = user.selectedObject.GetComponent<CelestialBody> ()) == null) {
 			return;
 		}
@@ -164,12 +170,12 @@ public class SceneManager : MonoBehaviour {
 		float furthestRegionLimit;
 
 		if (primary.NumSatellites <= 0) {
-			furthestRegionLimit = primary.Size / 2;
+			furthestRegionLimit = primary.naturalMaxSize / 2;
 		} else {
 			furthestRegionLimit = primary.FurthestSatellite.Region.Max;
 		}
 
-		float orbitRadius = furthestRegionLimit + CelestialBody.MinimumSeparatingDistance + templates[type].Size / 2;
+		float orbitRadius = furthestRegionLimit + CelestialBody.MinimumSeparatingDistance + templates[type].naturalMaxSize / 2;
 		OrbitPath path = Instantiate (orbitPathTemplate);
 
 		Debug.Log ("orbit radius is " + orbitRadius);
