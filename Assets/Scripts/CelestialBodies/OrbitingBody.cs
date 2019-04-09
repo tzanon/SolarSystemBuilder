@@ -81,6 +81,30 @@ public class OrbitingBody : CelestialBody, ISatellite
 		}
 	}
 
+	public Vector3 NextPoint
+	{
+		get { return _nextPathPoint; }
+	}
+
+	public Vector3 CumulativeWorldPosition
+	{
+		get
+		{
+			Vector3 pos = Primary.transform.position;
+			
+			// base case: primary is the initial star
+			if (Primary.CompareTag("InitialStar"))
+			{
+				return pos;
+			}
+			else
+			{
+				OrbitingBody movingPrimary = Primary.GetComponent<OrbitingBody>();
+				return pos + movingPrimary.CumulativeWorldPosition;
+			}
+		}
+	}
+
 	public OrbitPath Path
 	{
 		get { return _path; }
@@ -121,9 +145,9 @@ public class OrbitingBody : CelestialBody, ISatellite
 		this.transform.position = _path.GetWorldPointByIndex(0);
 		this.transform.rotation = Quaternion.identity;
 
-		offset = transform.position - Primary.transform.position;
+		//offset = transform.position - Primary.transform.position;
 		
-		this.GetNextPathPoint();
+		this.IncrementPathPoint();
 		
 		if (debugMode)
 			Debug.Log("first point is " + _nextPathPoint + " at index " + _pointIndex);
@@ -143,8 +167,9 @@ public class OrbitingBody : CelestialBody, ISatellite
 		
 	}
 
-#region slider setters
-
+#region slider setters/getters
+	
+	/* value setters (by percent) */
 	public void SetRadius1ByPercent(float percent)
 	{
 		OrbitRadius1 = CalculatePropertyValue(percent, OrbitPath.minRadius, OrbitPath.maxRadius);
@@ -159,8 +184,25 @@ public class OrbitingBody : CelestialBody, ISatellite
 	{
 		OrbitSpeed = CalculatePropertyValue(percent, MinOrbitSpeed, MaxOrbitSpeed);
 	}
-
+	
+	/* percent getters */
+	public float GetRadius1Percent()
+	{
+		return CalculatePropertyPercentage(OrbitRadius1, OrbitPath.minRadius, OrbitPath.maxRadius);
+	}
+	
+	public float GetRadius2Percent()
+	{
+		return CalculatePropertyPercentage(OrbitRadius2, OrbitPath.minRadius, OrbitPath.maxRadius);
+	}
+	
+	public float GetOrbitSpeedPercent()
+	{
+		return CalculatePropertyPercentage(OrbitSpeed, MinOrbitSpeed, MaxOrbitSpeed);
+	}
+	
 #endregion
+
 
 	/* calculates the region this OB occupies while orbiting */
 	public void CalculateOrbitRegion()
@@ -191,7 +233,7 @@ public class OrbitingBody : CelestialBody, ISatellite
 		}
 	}
 	
-	private void GetNextPathPoint()
+	private void IncrementPathPoint()
 	{
 		if (_pointIndex >= _path.Length - 1)
 		{
@@ -208,21 +250,24 @@ public class OrbitingBody : CelestialBody, ISatellite
 	
 	public void TraversePath()
 	{
-		Vector3 nextWorldPosition = Primary.transform.position + _nextPathPoint;
-
+		//Vector3 nextWorldPosition = Primary.transform.position + _nextPathPoint;
+		Vector3 nextWorldPosition;
+		
+		nextWorldPosition = this.CumulativeWorldPosition + _nextPathPoint;
+		
 		if (transform.position == nextWorldPosition)
 		{
-			this.GetNextPathPoint();
-
+			this.IncrementPathPoint();
+			
 			if (orbitDebugMode)
 			{
 				Instantiate(orbitMarker, this.transform.position, Quaternion.identity);
 			}
-
+			
 			if (debugMode)
 				Debug.Log("moving to path point " + nextWorldPosition.ToString());
 		}
-
+		
 		transform.position = Vector3.MoveTowards(
 			transform.position,
 			nextWorldPosition,

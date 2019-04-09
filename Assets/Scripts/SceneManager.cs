@@ -151,7 +151,7 @@ public class SceneManager : MonoBehaviour {
 		 * 2) min valid orbit rad = furthestOrbit.region.upperLimit + minDist (for now)
 		 * 3) add satellite at some radius s.t. not overlapping with former furthest
 		 */
-
+		
 		if (!_sceneIsEditable)
 			return;
 

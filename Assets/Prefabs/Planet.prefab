@@ -99,13 +99,13 @@ MonoBehaviour:
   highlightMaterial: {fileID: 2100000, guid: 3d938759d8b7a414988ec3261fb5265d, type: 2}
   naturalMaxSize: 50
   minSize: 15
-  _rotationVelocity: 30
+  _rotationVelocity: 40
   debugMode: 0
   orbitDebugMode: 1
   orbitMarker: {fileID: 1208074006869236, guid: 45dbcc74cdbf9f44aab54655fa409200,
     type: 2}
   msgRate: 1
-  _orbitSpeed: 15
+  _orbitSpeed: 30
 --- !u!135 &135254079510142596
 SphereCollider:
   m_ObjectHideFlags: 1

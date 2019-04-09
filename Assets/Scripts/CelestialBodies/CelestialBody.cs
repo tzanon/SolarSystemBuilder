@@ -135,6 +135,7 @@ public class CelestialBody : MonoBehaviour
 		mr.materials = mats;
 	}
 	
+	/* value setters (by percent) */
 	public void SetTiltXByPercent(float percent)
 	{
 		AxialTiltX = CalculatePropertyValue(percent, MinTilt, MaxTilt);
@@ -147,7 +148,6 @@ public class CelestialBody : MonoBehaviour
 
 	public void SetSizeByPercent(float percent)
 	{
-		//Size = CalculatePropertyValue(percent, minSize, _maxSize);
 		Size = CalculatePropertyValue(percent, minSize, naturalMaxSize);
 	}
 
@@ -161,7 +161,7 @@ public class CelestialBody : MonoBehaviour
 		_luminosity = CalculatePropertyValue(percent, MinLuminosity, MaxLuminosity);
 	}
 	
-	// TODO: percentage calculate functions
+	/* percent getters */
 	public float GetTiltXPercent()
 	{
 		return CalculatePropertyPercentage(AxialTiltX, MinTilt, MaxTilt);
@@ -175,6 +175,16 @@ public class CelestialBody : MonoBehaviour
 	public float GetSizePercent()
 	{
 		return CalculatePropertyPercentage(Size, minSize, _maxSize);
+	}
+	
+	public float GetRotationVelocityPercent()
+	{
+		return CalculatePropertyPercentage(_rotationVelocity, MinRotVel, MaxRotVel);
+	}
+	
+	public float GetLuminosityPercent()
+	{
+		return CalculatePropertyPercentage(_luminosity, MinLuminosity, MaxLuminosity);
 	}
 	
 	private void CalculateFurthestSatellite()

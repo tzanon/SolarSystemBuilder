@@ -64,11 +64,9 @@ public class PrimeStarMenu : BaseMenu {
 	public override void SetInitialSliderValues()
 	{
 		base.SetInitialSliderValues();
-
-		foreach (MenuSlider slider in _sliders)
-		{
-			if (!slider)
-				continue;
-		}
+		
+		tiltXSlider.Value = initialStar.GetTiltXPercent();
+		
+		
 	}
 }

@@ -74,7 +74,7 @@ public class OrbitingBodyMenu : BaseMenu {
 
 	public void IncrementOrbitRad1()
 	{
-
+		
 	}
 
 	public void DecrementOrbitRad1()
@@ -84,7 +84,7 @@ public class OrbitingBodyMenu : BaseMenu {
 
 	public void IncrementOrbitRad2()
 	{
-
+		
 	}
 
 	public void DecrementOrbitRad2()
@@ -104,7 +104,7 @@ public class OrbitingBodyMenu : BaseMenu {
 
 	public override void SetInitialSliderValues()
 	{
-
+		
 	}
 	
 }

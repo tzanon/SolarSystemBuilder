@@ -101,8 +101,9 @@ MonoBehaviour:
   highlightMaterial: {fileID: 2100000, guid: 3d938759d8b7a414988ec3261fb5265d, type: 2}
   naturalMaxSize: 150
   minSize: 90
-  _rotationVelocity: 30
+  _rotationVelocity: 20
   debugMode: 0
+  orbitDebugMode: 0
   orbitMarker: {fileID: 1208074006869236, guid: 45dbcc74cdbf9f44aab54655fa409200,
     type: 2}
   msgRate: 1
