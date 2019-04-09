@@ -22,14 +22,21 @@ public class PrimeStarMenu : BaseMenu {
 		//_sliders = new List<MenuSlider>();
 	}
 
+	public override void NextPage()
+	{
+		base.NextPage();
+		//next.next = this;
+		//next.previous = this;
+	}
+
 	public void NextTexture () {
 		Debug.Log ("next texture");
-		
+		initialStar.NextTexture();
 	}
 
 	public void PreviousTexture () {
 		Debug.Log ("previous texture");
-		
+		initialStar.PreviousTexture();
 	}
 	
 	public void ChangeTiltX()

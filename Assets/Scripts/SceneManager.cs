@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Valve.VR;
 
 public class SceneManager : MonoBehaviour {
 
@@ -33,6 +35,9 @@ public class SceneManager : MonoBehaviour {
 	private float lastTimeMultiplier;
 
 	private Vector3 systemViewPosition;
+	public GameObject topView;
+	private bool isTeleporting = false;
+	private float fadeDuration = 0.5f;
 
 	public bool SceneIsEditable {
 		get { return _sceneIsEditable; }
@@ -138,9 +143,31 @@ public class SceneManager : MonoBehaviour {
 	{
 		// teleport magic
 
-		user.transform.position = systemViewPosition;
+		Vector3 destination;
 
-		// fade in
+		if (!user.selectedObject)
+			destination = topView.transform.position;
+		else
+			destination = user.selectedObject.GetComponent<CelestialBody>().viewer.transform.position;
+
+		if (!isTeleporting)
+		{
+			isTeleporting = true;
+			SteamVR_Fade.View(Color.black, fadeDuration);
+			StartCoroutine("FadeIn", destination);
+		}
+
+		//user.transform.position = systemViewPosition;
+		//user.transform.position = topView.transform.position;
+
+	}
+
+	IEnumerator FadeIn(Vector3 pos)
+	{
+		yield return new WaitForSeconds(fadeDuration);
+		user.transform.position = pos;
+		SteamVR_Fade.View(Color.clear, fadeDuration);
+		isTeleporting = false;
 	}
 
 	/* adds a satellite in orbit around an existing body */

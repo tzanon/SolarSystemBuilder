@@ -60,7 +60,7 @@ public class User : MonoBehaviour {
 		/* teleport to the hovered object */
 		if (teleport.GetStateDown (selectHand)) {
 			Debug.Log ("teleporting");
-
+			sceneManager.TeleportToSystemViepoint();
 		}
 		/* push a UI button, drag a slider, etc. */
 		if (menuInteract.GetStateDown (selectHand)) {

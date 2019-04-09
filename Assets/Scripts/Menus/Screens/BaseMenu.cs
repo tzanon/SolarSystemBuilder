@@ -31,13 +31,13 @@ public abstract class BaseMenu : MonoBehaviour {
 		this.gameObject.SetActive (false);
 	}
 
-	public void NextPage()
+	public virtual void NextPage()
 	{
 		if (next)
 			menuManager.ActivateMenu(next);
 	}
 	
-	public void PreviousPage()
+	public virtual void PreviousPage()
 	{
 		if (previous)
 			menuManager.ActivateMenu(previous);

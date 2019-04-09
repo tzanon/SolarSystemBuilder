@@ -6,6 +6,9 @@ public class CelestialBody : MonoBehaviour
 	private MeshRenderer mr;
 	public List<Material> availableMaterials;
 	public Material highlightMaterial;
+	private int materialIndex = 0;
+
+	public GameObject viewer;
 
 	public const float MinimumSeparatingDistance = 15.0f;
 
@@ -100,6 +103,8 @@ public class CelestialBody : MonoBehaviour
 	protected virtual void Start()
 	{
 		mr = GetComponent<MeshRenderer>();
+
+		viewer.transform.position = this.transform.position + new Vector3(-(naturalMaxSize + 50.0f), 0.0f, 0.0f);
 	}
 	
 	protected virtual void FixedUpdate()
@@ -120,6 +125,34 @@ public class CelestialBody : MonoBehaviour
 		float propertyRange = max - min + 1;
 		float percent = (value - min) / propertyRange;
 		return percent;
+	}
+
+	public void NextTexture()
+	{
+		if (textureIndex >= availableMaterials.Count - 1)
+		{
+			textureIndex = 0;
+		}
+		else
+		{
+			textureIndex++;
+		}
+
+		SetTextureByIndex(textureIndex);
+	}
+
+	public void PreviousTexture()
+	{
+		if (textureIndex <= 0)
+		{
+			textureIndex = availableMaterials.Count - 1;
+		}
+		else
+		{
+			textureIndex--;
+		}
+
+		SetTextureByIndex(textureIndex);
 	}
 
 	public void SetTextureByIndex(int idx)
