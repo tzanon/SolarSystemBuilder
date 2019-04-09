@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour {
 
-	public enum MenuType { Edit, View, PrimeStar, RegularStar, Planet, Moon, AddSatellite }
+	public enum MenuType { Edit, View, PrimeStar, RegularStar, Planet, Moon, AddSatellite, Orbit }
 
 	private SceneManager sm;
 
@@ -16,6 +16,7 @@ public class MenuManager : MonoBehaviour {
 	public OrbitingBodyMenu regularStarMenu;
 	public OrbitingBodyMenu planetMenu;
 	public OrbitingBodyMenu moonMenu;
+	public OrbitingBodyMenu orbitMenu;
 
 	private Dictionary<MenuType, BaseMenu> menus;
 
@@ -31,14 +32,13 @@ public class MenuManager : MonoBehaviour {
 			{ MenuType.RegularStar, regularStarMenu },
 			{ MenuType.Planet, planetMenu },
 			{ MenuType.Moon, moonMenu },
-			{ MenuType.AddSatellite, addSatelliteMenu }
+			{ MenuType.AddSatellite, addSatelliteMenu },
+			{ MenuType.Orbit, orbitMenu }
 		};
 	}
 
 	public void InitMenus()
 	{
-		
-
 		foreach (BaseMenu menu in menus.Values)
 		{
 			//menu.gameObject.SetActive(true);
