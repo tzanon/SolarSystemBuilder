@@ -12,21 +12,30 @@ public class PrimeStarMenu : BaseMenu {
 	public MenuSlider luminositySlider;
 	
 	public override void Init () {
-		base.Init();
+		
 		initialStar = sceneManager.initialStar;
+		base.Init();
 	}
 
 	protected override void MakeSliderList()
 	{
 		_sliders = new List<MenuSlider> { tiltXSlider, tiltZSlider, sizeSlider, rotationSlider, luminositySlider };
-		//_sliders = new List<MenuSlider>();
 	}
 
 	public override void NextPage()
 	{
-		base.NextPage();
 		//next.next = this;
 		//next.previous = this;
+		
+		base.NextPage();
+	}
+
+	public override void PreviousPage()
+	{
+		//previous.next = this;
+		//previous.previous = this;
+
+		base.PreviousPage();
 	}
 
 	public void NextTexture () {
@@ -71,9 +80,11 @@ public class PrimeStarMenu : BaseMenu {
 	public override void SetInitialSliderValues()
 	{
 		base.SetInitialSliderValues();
-		
+
 		tiltXSlider.Value = initialStar.GetTiltXPercent();
-		
-		
+		tiltZSlider.Value = initialStar.GetTiltZPercent();
+		sizeSlider.Value = initialStar.GetSizePercent();
+		rotationSlider.Value = initialStar.GetRotationVelocityPercent();
+		luminositySlider.Value = initialStar.GetLuminosityPercent();
 	}
 }

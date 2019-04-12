@@ -168,32 +168,10 @@ public class OrbitingBody : CelestialBody, ISatellite
 	}
 
 #region slider setters/getters
-	
-	/* value setters (by percent) */
-	public void SetRadius1ByPercent(float percent)
-	{
-		OrbitRadius1 = CalculatePropertyValue(percent, OrbitPath.minRadius, OrbitPath.maxRadius);
-	}
-
-	public void SetRadius2ByPercent(float percent)
-	{
-		OrbitRadius2 = CalculatePropertyValue(percent, OrbitPath.minRadius, OrbitPath.maxRadius);
-	}
 
 	public void SetOrbitSpeedByPercent(float percent)
 	{
 		OrbitSpeed = CalculatePropertyValue(percent, MinOrbitSpeed, MaxOrbitSpeed);
-	}
-	
-	/* percent getters */
-	public float GetRadius1Percent()
-	{
-		return CalculatePropertyPercentage(OrbitRadius1, OrbitPath.minRadius, OrbitPath.maxRadius);
-	}
-	
-	public float GetRadius2Percent()
-	{
-		return CalculatePropertyPercentage(OrbitRadius2, OrbitPath.minRadius, OrbitPath.maxRadius);
 	}
 	
 	public float GetOrbitSpeedPercent()

@@ -12,8 +12,8 @@ public class InteractHand : MonoBehaviour {
 	/* need different trigger regions for touch and vive controllers */
 	public bool usingVive;
 
-	private readonly Vector3 touchTriggerPos = new Vector3(0.0f, -0.03f, -0.05f);
-	private const float touchTriggerRadius = 0.03f;
+	private readonly Vector3 touchTriggerPos = new Vector3(-0.005f, -0.03f, -0.05f);
+	private const float touchTriggerRadius = 0.01f;
 	private readonly Vector3 viveTriggerPos = new Vector3(0.0f, -0.05f, 0.03f);
 	private const float viveTriggerRadius = 0.03f;
 
@@ -94,13 +94,13 @@ public class InteractHand : MonoBehaviour {
 		{
 			// render laser
 			Ray ray = new Ray(castAimer.transform.position, castAimer.transform.forward);
-			Vector3 startPos = this.transform.position;
+			Vector3 startPos = this.transform.position - 0.04f * Vector3.forward;
 			Vector3 endPos = ray.GetPoint(laserRange);
 
 			// highlight object being aimed at
 			RaycastHit hit;
 
-			if (Physics.Raycast(ray, out hit))
+			if (Physics.Raycast(ray, out hit) )//&& !hit.collider.CompareTag("InteractHand"))
 			{
 				endPos = hit.point;
 

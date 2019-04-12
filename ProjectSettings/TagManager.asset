@@ -13,6 +13,7 @@ TagManager:
   - FxTemporaire
   - projectile
   - Slider
+  - User
   layers:
   - Default
   - TransparentFX

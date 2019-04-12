@@ -11,7 +11,8 @@ public abstract class BaseMenu : MonoBehaviour {
 	
 	protected List<MenuSlider> _sliders;
 	
-	private void Start() {
+	private void Start()
+	{
 		MakeSliderList();
 		//Init();
 	}
@@ -27,7 +28,8 @@ public abstract class BaseMenu : MonoBehaviour {
 		SetInitialSliderValues();
 	}
 	
-	public virtual void Hide () {
+	public virtual void Hide ()
+	{
 		this.gameObject.SetActive (false);
 	}
 
@@ -43,7 +45,6 @@ public abstract class BaseMenu : MonoBehaviour {
 			menuManager.ActivateMenu(previous);
 	}
 
-	// TODO: set sliders so they reflect the current settings of the selected object
 	public virtual void SetInitialSliderValues()
 	{
 		foreach (MenuSlider slider in _sliders)

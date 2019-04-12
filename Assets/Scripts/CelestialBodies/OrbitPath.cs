@@ -17,10 +17,7 @@ public class OrbitPath : MonoBehaviour {
 	private const int DefaultPointsToCalculate = 6;
 	public int pointsToCalculate;
 
-	//public const float PointProximityThreshold = 0.5f;
-
-	public static float minRadius = 100.0f;
-	public static float maxRadius = 2000.0f;
+	public static float minRadius = 270.0f;
 
 	public float initRad1, initRad2;
 	private float _rad1, _rad2;
@@ -53,7 +50,9 @@ public class OrbitPath : MonoBehaviour {
 	public float Radius1 {
 		get { return _rad1; }
 		set {
-			_rad1 = value; // Mathf.Clamp (value, 1.0f, 100.0f);
+			if (value <= minRadius)
+				return;
+			_rad1 = value;
 			CalculatePathPoints ();
 		}
 	}
@@ -62,7 +61,9 @@ public class OrbitPath : MonoBehaviour {
 	public float Radius2 {
 		get { return _rad2; }
 		set {
-			_rad2 = value; // Mathf.Clamp (value, 1.0f, 100.0f);
+			if (value <= minRadius)
+				return;
+			_rad2 = value;
 			CalculatePathPoints ();
 		}
 	}

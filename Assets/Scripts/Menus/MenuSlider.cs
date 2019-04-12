@@ -4,12 +4,8 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 public class MenuSlider : MenuControl {
-
-	public float MinValue = 0.0f;
-	public float MaxValue = 1.0f;
-
-	private float minPos;
-	private float maxPos;
+	private float minPos = -0.1f;
+	private float maxPos = 0.1f;
 
 	public InteractHand interactingHand;
 	public GameObject knob;
@@ -29,7 +25,7 @@ public class MenuSlider : MenuControl {
 		{
 			float percent = Mathf.Clamp(value, 0.0f, 1.0f);
 			float absolutePosition = percent / _collider.bounds.size.x;
-			float trackPosition = absolutePosition - Mathf.Abs(minPos);
+			float trackPosition = Mathf.Clamp(absolutePosition - Mathf.Abs(minPos), minPos, maxPos);
 			
 			Vector3 knobPos = knob.transform.localPosition;
 			knob.transform.localPosition = new Vector3(trackPosition, knobPos.y, knobPos.z);
