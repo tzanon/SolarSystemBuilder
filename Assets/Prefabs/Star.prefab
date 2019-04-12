@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1616102799796962}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 295.5, y: -11.7, z: -71.2}
+  m_LocalPosition: {x: 299.9, y: -11.7, z: -73.8}
   m_LocalScale: {x: 90, y: 90, z: 90}
   m_Children:
   - {fileID: 4588145812856648}
@@ -86,7 +86,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 2fd46c1e533d4e143ac7cffe3b9ce8de, type: 2}
+  - {fileID: 2100000, guid: d5fb43673f084414282711908d6c7359, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,8 +125,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableMaterials:
-  - {fileID: 2100000, guid: 2fd46c1e533d4e143ac7cffe3b9ce8de, type: 2}
-  - {fileID: 2100000, guid: 4f41ff9d5a0ccaf4f82b99536a78695d, type: 2}
+  - {fileID: 2100000, guid: d5fb43673f084414282711908d6c7359, type: 2}
+  - {fileID: 2100000, guid: 1c7aec4cd96212f4b907206a1f0f0a05, type: 2}
+  - {fileID: 2100000, guid: de11e20c4fe7d8f4c8e5b9b4dfefad60, type: 2}
   highlightMaterial: {fileID: 2100000, guid: 3d938759d8b7a414988ec3261fb5265d, type: 2}
   viewer: {fileID: 1108457541467428}
   naturalMaxSize: 150

@@ -60,7 +60,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4291450894442442
 Transform:
   m_ObjectHideFlags: 1
@@ -116,8 +116,8 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4f41ff9d5a0ccaf4f82b99536a78695d, type: 2}
-  - {fileID: 2100000, guid: 4f41ff9d5a0ccaf4f82b99536a78695d, type: 2}
+  - {fileID: 2100000, guid: 1c7aec4cd96212f4b907206a1f0f0a05, type: 2}
+  - {fileID: 2100000, guid: 1c7aec4cd96212f4b907206a1f0f0a05, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -192,8 +192,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableMaterials:
-  - {fileID: 2100000, guid: 4f41ff9d5a0ccaf4f82b99536a78695d, type: 2}
-  - {fileID: 2100000, guid: 4bbfb51732601354298f984a34c294b3, type: 2}
+  - {fileID: 2100000, guid: 1c7aec4cd96212f4b907206a1f0f0a05, type: 2}
+  - {fileID: 2100000, guid: d5fb43673f084414282711908d6c7359, type: 2}
+  - {fileID: 2100000, guid: de11e20c4fe7d8f4c8e5b9b4dfefad60, type: 2}
   highlightMaterial: {fileID: 2100000, guid: 3d938759d8b7a414988ec3261fb5265d, type: 2}
   viewer: {fileID: 1859172518342876}
   naturalMaxSize: 250
