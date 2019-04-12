@@ -50,8 +50,8 @@ public class OrbitPath : MonoBehaviour {
 	public float Radius1 {
 		get { return _rad1; }
 		set {
-			if (value <= minRadius)
-				return;
+			//if (value <= minRadius) return;
+			Debug.Log("new radius 1 is " + value);
 			_rad1 = value;
 			CalculatePathPoints ();
 		}
@@ -61,8 +61,8 @@ public class OrbitPath : MonoBehaviour {
 	public float Radius2 {
 		get { return _rad2; }
 		set {
-			if (value <= minRadius)
-				return;
+			//if (value <= minRadius) return;
+			Debug.Log("new radius 2 is " + value);
 			_rad2 = value;
 			CalculatePathPoints ();
 		}

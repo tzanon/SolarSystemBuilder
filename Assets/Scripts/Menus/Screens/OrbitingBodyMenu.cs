@@ -97,22 +97,22 @@ public class OrbitingBodyMenu : BaseMenu {
 
 	public void IncrementOrbitRad1()
 	{
-		orbitingBody.OrbitRadius1 += radiusIncrement;
+		orbitingBody.OrbitRadius1 = orbitingBody.OrbitRadius1 + radiusIncrement;
 	}
 
 	public void DecrementOrbitRad1()
 	{
-		orbitingBody.OrbitRadius1 -= radiusIncrement;
+		orbitingBody.OrbitRadius1 = orbitingBody.OrbitRadius1 - radiusIncrement;
 	}
 
 	public void IncrementOrbitRad2()
 	{
-		orbitingBody.OrbitRadius2 += radiusIncrement;
+		orbitingBody.OrbitRadius2 = orbitingBody.OrbitRadius2 + radiusIncrement;
 	}
 
 	public void DecrementOrbitRad2()
 	{
-		orbitingBody.OrbitRadius2 -= radiusIncrement;
+		orbitingBody.OrbitRadius2 = orbitingBody.OrbitRadius2 - radiusIncrement;
 	}
 	
 	public void ChangeOrbitSpeed()

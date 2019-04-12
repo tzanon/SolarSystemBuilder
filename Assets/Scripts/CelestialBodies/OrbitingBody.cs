@@ -42,6 +42,7 @@ public class OrbitingBody : CelestialBody, ISatellite
 		get { return _path.Radius1; }
 		set
 		{
+			Debug.Log("setting radius 1 to " + value);
 			_path.Radius1 = value;
 			this.transform.position = _path.GetWorldPointByIndex(0);
 			CalculateOrbitRegion();
@@ -53,6 +54,7 @@ public class OrbitingBody : CelestialBody, ISatellite
 		get { return _path.Radius2; }
 		set
 		{
+			Debug.Log("setting radius 2 to " + value);
 			_path.Radius2 = value;
 			this.transform.position = _path.GetWorldPointByIndex(0);
 			CalculateOrbitRegion();

@@ -131,12 +131,12 @@ public class SceneManager : MonoBehaviour {
 		if (initialStar.NumSatellites <= 0) {
 			furthestDistance = initialStar.Size / 2;
 		} else {
-			furthestDistance = initialStar.FurthestSatellite.Region.Max;
+			float distanceBetween = (initialStar.transform.position - ((CelestialBody) initialStar.FurthestSatellite).transform.position).magnitude ;
+			furthestDistance = distanceBetween + initialStar.FurthestSatellite.Region.Max;
 		}
 
 		furthestDistance += CelestialBody.MinimumSeparatingDistance;
-
-		systemViewPosition = new Vector3(furthestDistance, 0.0f, 0.0f);
+		systemViewPosition = new Vector3(furthestDistance, topView.transform.position.y, 0.0f);
 	}
 
 	public void TeleportToSystemViepoint()
@@ -146,9 +146,16 @@ public class SceneManager : MonoBehaviour {
 		Vector3 destination;
 
 		if (!user.selectedObject)
-			destination = topView.transform.position;
+		{
+			//destination = topView.transform.position;
+			CalculateSystemViewpoint();
+			destination = systemViewPosition;
+		}
 		else
+		{
 			destination = user.selectedObject.GetComponent<CelestialBody>().viewer.transform.position;
+		}
+			
 
 		if (!isTeleporting)
 		{
